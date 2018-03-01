@@ -1,12 +1,36 @@
-#  Cumulus Template Deployment Project
+#  Cumulus Integration Test Project
 
-Documentation for the cumulus template project can be read online
+## What is Cumulus?
 
-[https://cumulus-nasa.github.io/docs/deployment.html](https://cumulus-nasa.github.io/docs/deployment.html)
+Cumulus is a cloud-based data ingest, archive, distribution and management
+prototype for NASA's future Earth science data streams.
 
+Read the [Cumulus Documentation](https://cumulus-nasa.github.io/)
+ 
+## Running tests locally
 
-# Document repository
+These tests run against AWS, so a Cumulus deployment is needed. Set up the deployment using the configurations in this repository. Deployment instructions are located [here](https://cumulus-nasa.github.io/docs/deployment.html). The dashboard is not needed for these tests.
 
-Code changes effecting the template should continue to be documented in the main repository.
+Your default AWS credentials should be the same credentials used for the deployment.
 
-[https://github.com/cumulus-nasa/cumulus-nasa.github.io](https://github.com/cumulus-nasa/cumulus-nasa.github.io)
+Tests are written and run with [jasmine](https://jasmine.github.io/setup/nodejs.html).
+
+### Run all tests
+
+To run all of the tests, run `jasmine` in the top level of the repository.
+
+### Run tests for an individual test file
+
+To run an individual test file, include a path to the spec file, i.e. `jasmine spec/helloWorld/HelloWorldSuccessSpec.js`.
+
+## Adding tests
+
+### Adding tests for an existing workflow
+
+Workflow tests are located in the `/spec/<workflow-name>` folder. Any tests and supporting JSON files can go in there. 
+
+### Adding a new test workflow
+
+The workflow should be configured as it would be for a normal Cumulus deployment in `workflows.yml`. It must be deployed to the current deployment if testing locally.
+
+A new folder should be added in the `/spec` folder for the workflow and the tests should go into that folder with the input JSON files. 
