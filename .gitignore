@@ -9,3 +9,5 @@ node_modules
 .env
 package-lock.json
 /deployer/cloudformation.yml
+CumulusApiDefault.yml
+CumulusApiV1.yml

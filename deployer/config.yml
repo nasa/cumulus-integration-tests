@@ -1,9 +1,9 @@
 default:
-  prefix: template-cumulus
-  stackName: template-cumulus-deployer
-  stackNameNoDash: TemplateCumulus
+  prefix: test-cumulus
+  stackName: test-cumulus-deployer
+  stackNameNoDash: testCumulus
   buckets:
-    internal: template-cumulus-sandbox-deploy
+    internal: cumulus-test-sandbox-internal
   capabilities:
     - CAPABILITY_IAM
 
