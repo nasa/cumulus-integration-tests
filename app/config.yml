@@ -6,9 +6,9 @@ default:
   apiStage: dev
 
   vpc:
-    vpcId: vpc-5bb23422
+    vpcId: <change-me> 
     subnets:
-      - subnet-ae2ba1f4
+      - <change-me>
 
   ecs:
     instanceType: t2.micro
@@ -17,12 +17,6 @@ default:
     internal: cumulus-test-sandbox-internal
 
   iams:
-    ecsRoleArn: arn:aws:iam::433612427488:role/ghrc-cumulus-ecs
-    lambdaApiGatewayRoleArn: arn:aws:iam::433612427488:role/ghrc-cumulus-lambda-api-gateway
-    lambdaProcessingRoleArn: arn:aws:iam::433612427488:role/ghrc-cumulus-lambda-processing
-    stepRoleArn: arn:aws:iam::433612427488:role/ghrc-cumulus-steprole
-    instanceProfile: arn:aws:iam::433612427488:instance-profile/ghrc-cumulus-ecs
-
     urs_url: https://uat.urs.earthdata.nasa.gov/ #make sure to include the trailing slash
 
     # if not specified the value of the apigateway backend endpoint is used
@@ -34,18 +28,3 @@ default:
   # URS users who should have access to the dashboard application.
   users:
     - username: lfrederick
-
-
-lf-test:
-
-  vpc:
-    vpcId: vpc-5bb23422
-    subnets:
-      - subnet-ae2ba1f4
-
-  iams:
-    ecsRoleArn: arn:aws:iam::596205514787:role/test-cumulus-ecs
-    lambdaApiGatewayRoleArn: arn:aws:iam::596205514787:role/test-cumulus-lambda-api-gateway
-    lambdaProcessingRoleArn: arn:aws:iam::596205514787:role/test-cumulus-lambda-processing
-    stepRoleArn: arn:aws:iam::596205514787:role/test-cumulus-steprole
-    instanceProfile: arn:aws:iam::596205514787:instance-profile/test-cumulus-ecs
