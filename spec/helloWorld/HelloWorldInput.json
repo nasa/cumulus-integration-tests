@@ -2,8 +2,8 @@
   "cumulus_meta": {
     "message_source": "sfn",
     "system_bucket": "cumulus-test-sandbox-internal",
-    "state_machine": "arn:aws:states:us-east-1:596205514787:stateMachine:TestCumulusHelloWorldWorkfl-1IR2c2HPmZVw",
-    "execution_name": "6daf7da9-349d-4ffc-98a0-77c44239c6d5",
+    "state_machine": "",
+    "execution_name": "",
     "workflow_start_time": 1519832299820
   },
   "meta": {
@@ -22,7 +22,6 @@
       "password": "nopassword"
     },
     "distribution_endpoint": "https://yupnyh0vve.execute-api.us-east-1.amazonaws.com/dev/",
-    "topic_arn": "arn:aws:sns:us-east-1:596205514787:test-cumulus-sftrackerSns-P35H365P7T0B",
     "collection": {
       "process": "aster",
       "granuleIdExtraction": "^pg-[P|B]R(1A.*)$",
@@ -83,7 +82,7 @@
       "HelloWorldWorkflow": "s3://cumulus-test-sandbox-internal/test-cumulus/workflows/HelloWorldWorkflow.json"
     },
     "queues": {
-      "startSF": "https://sqs.us-east-1.amazonaws.com/596205514787/test-cumulus-startSF"
+      "startSF": "https://sqs.us-east-1.amazonaws.com/000000000/test-cumulus-startSF"
     }
   },
   "workflow_config": {

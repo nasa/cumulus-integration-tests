@@ -1,6 +1,6 @@
 describe("The Hello World workflow", function() {
   jasmine.DEFAULT_TIMEOUT_INTERVAL = 120000;
-  var workflow = require('../../../cumulus/packages/integration-tests/dist/index');
+  var workflow = require('@cumulus/integration-tests');
 
   let workflowExecution = null;
 
