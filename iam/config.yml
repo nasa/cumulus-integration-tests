@@ -1,14 +1,11 @@
 default:
-  prefix: template-cumulus
-  stackName: template-cumulus-iam
+  prefix: test-cumulus
+  stackName: test-cumulus-iam
   authorizor: false
   capabilities:
     - CAPABILITY_NAMED_IAM
   buckets:
-    internal: template-cumulus-sandbox-deploy
-    private: template-cumulus-sandbox-private
-    protected: template-cumulus-sandbox-protected
-    public: template-cumulus-sandbox-public
+    internal: cumulus-test-sandbox-internal
 
   params:
      - name: ResourcePrefix

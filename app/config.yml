@@ -1,0 +1,30 @@
+
+default:
+  stackName: test-cumulus
+  stackNameNoDash: TestCumulus
+
+  apiStage: dev
+
+  vpc:
+    vpcId: <change-me> 
+    subnets:
+      - <change-me>
+
+  ecs:
+    instanceType: t2.micro
+
+  buckets:
+    internal: cumulus-test-sandbox-internal
+
+  iams:
+    urs_url: https://uat.urs.earthdata.nasa.gov/ #make sure to include the trailing slash
+
+    # if not specified the value of the apigateway backend endpoint is used
+    # api_backend_url: https://apigateway-url-to-api-backend/ #make sure to include the trailing slash
+
+    # if not specified the value of the apigateway dist url is used
+    # api_distribution_url: https://apigateway-url-to-distribution-app/ #make sure to include the trailing slash
+
+  # URS users who should have access to the dashboard application.
+  users:
+    - username: lfrederick
