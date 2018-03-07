@@ -6,7 +6,14 @@ Cumulus is a cloud-based data ingest, archive, distribution and management
 prototype for NASA's future Earth science data streams.
 
 Read the [Cumulus Documentation](https://cumulus-nasa.github.io/)
- 
+
+## Installation
+
+```bash
+nvm use
+npm install
+```
+
 ## Running tests locally
 
 These tests run against AWS, so a Cumulus deployment is needed. Set up the deployment using the configurations in this repository. Deployment instructions are located [here](https://cumulus-nasa.github.io/docs/deployment.html). The dashboard is not needed for these tests.
