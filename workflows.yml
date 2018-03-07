@@ -1,4 +1,3 @@
-
 HelloWorldWorkflow:
   Comment: 'Returns Hello World'
   StartAt: StartStatus
