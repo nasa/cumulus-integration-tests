@@ -1,5 +1,4 @@
 const fs = require('fs');
-const objectPath = require('object-path');
 const yaml = require('js-yaml');
 
 function loadConfig() {
@@ -13,12 +12,9 @@ function loadConfig() {
 };
 
 function templateInput({ inputTemplateFilename, config, templatedInputFilename }) {
-  let inputTemplate = JSON.parse(fs.readFileSync(inputTemplateFilename));
-  Object.keys(config).forEach((configObjectPath) => {
-    const configValue = config[configObjectPath];
-    objectPath.set(inputTemplate, configObjectPath, configValue);
-  });
-  return fs.writeFileSync(templatedInputFilename, JSON.stringify(inputTemplate, null, 2));
+  const inputTemplate = JSON.parse(fs.readFileSync(inputTemplateFilename));
+  const templatedInput = {...inputTemplate, config};
+  return fs.writeFileSync(templatedInputFilename, JSON.stringify(templatedInput, null, 2));
 };
 
 module.exports = {

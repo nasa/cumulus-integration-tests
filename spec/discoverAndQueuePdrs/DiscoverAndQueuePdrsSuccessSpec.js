@@ -37,7 +37,7 @@ describe("The Discover And Queue PDRs workflow", function() {
     });
 
     it("has expdcted path and name output", function() {
-      expect(lambdaPayload.pdrs[0].path).toEqual('lpdaac-cumulus/test_stuff');
+      expect(lambdaPayload.pdrs[0].path).toEqual('cumulus-test-data/pdrs');
       expect(lambdaPayload.pdrs[0].name).toEqual('MOD09GQ_1granule_v3.PDR');
     });
   });

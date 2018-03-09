@@ -11,11 +11,11 @@
       "internal": ""
     },
     "collection": {
-      "provider_path": ""
+      "provider_path": "cumulus-test-data/pdrs"
     },
     "provider": {
       "id": "s3_provider",
-      "host": "",
+      "host": "cumulus-data-shared",
       "globalConnectionLimit": 10,
       "protocol": "s3"
     },
