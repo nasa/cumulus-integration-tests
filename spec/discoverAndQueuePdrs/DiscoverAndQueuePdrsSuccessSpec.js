@@ -24,29 +24,20 @@ describe("The Discover And Queue PDRs workflow", function() {
       lambdaPayload = await workflow.getLambdaOutput(workflowExecution.executionArn, "DiscoverPdrs");
     });
 
-    //    "pdrs": [
-    //   {
-    //     "path": "lpdaac-cumulus/test_stuff",
-    //     "time": 1519409682000,
-    //     "name": "MOD09GQ_1granule_v3.PDR",
-    //     "size": 602
-    //   }
-    // ]
-    it("output is Hello World", function() {
-      console.log(lambdaPayload);
+    it("has expdcted path and name output", function() {
       expect(lambdaPayload.pdrs[0].path).toEqual('lpdaac-cumulus/test_stuff');
       expect(lambdaPayload.pdrs[0].name).toEqual('MOD09GQ_1granule_v3.PDR');
     });
   });
 
-  describe("the DiscoverPdrs Lambda", function() {
+  describe("the QueuePdrs Lambda", function() {
     let lambdaPayload = null;
 
     beforeAll(async function() {
       lambdaPayload = await workflow.getLambdaOutput(workflowExecution.executionArn, "QueuePdrs");
     });
 
-    it("output is Hello World", function() {
+    it("output is pdrs_queued", function() {
       expect(lambdaPayload).toEqual({ pdrs_queued: 1 });
     });
   });  
