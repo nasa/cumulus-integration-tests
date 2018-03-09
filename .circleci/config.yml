@@ -1,0 +1,33 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:8.4
+
+    working_directory: ~/project
+    steps:
+      - checkout
+
+      # restore cache
+      - restore_cache:
+          keys:
+            - deploy-{{ .Branch }}-{{ checksum "package.json" }}
+
+      - run:
+          name: install dependencies 
+          command: yarn 
+      
+      # save cache
+      - save_cache:
+          key: deploy-{{ .Branch }}-{{ checksum "package.json" }}
+          paths:
+            - ~/project/node_modules
+
+      - run:
+          name: Deploy lastest changes
+          command: yarn deploy
+
+      - run:
+          name: Run Tests 
+          command: yarn test 
+

@@ -4,13 +4,8 @@
   "description": "Cumulus Integration Test Deployment",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "create-deployer": "kes cf create --kes-folder deployer",
-    "update-deployer": "kes cf update --kes-folder deployer",
-    "create-iam": "kes cf create --kes-folder iam",
-    "update-iam": "kes cf update --kes-folder iam",
-    "create": "kes cf create --kes-folder config",
-    "update": "kes cf update --kes-folder config --kes-class config/kes.js --role arn:aws:iam::985962406024:role/lpdaac-cumulus-deployer-DeployerRole-1PCCES1GW83BC"
+    "test": "jasmine",
+    "deploy": "kes cf deploy --kes-folder app --region us-east-1 --template node_modules/@cumulus/deployment/app"
   },
   "author": "Cumulus Authors",
   "license": "Apache-2.0",
