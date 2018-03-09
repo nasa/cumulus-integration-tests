@@ -1,13 +1,16 @@
-describe("The Discover And Queue PDRs workflow", function() {
-  jasmine.DEFAULT_TIMEOUT_INTERVAL = 120000;
-  var workflow = require('@cumulus/integration-tests');
+const workflow = require('@cumulus/integration-tests');
+const { loadConfig } = require('../helpers/testUtils');
+const awsConfig = loadConfig();
 
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 120000;
+
+describe("The Discover And Queue PDRs workflow", function() {
   let workflowExecution = null;
 
   beforeAll(async function() {
     workflowExecution = await workflow.executeWorkflow(
-      'aimee-deploy-cumulus',
-      'cumulus-devseed-internal',
+      awsConfig.stackName,
+      awsConfig.bucket,
       'DiscoverAndQueuePdrs',
       'spec/discoverAndQueuePdrs/DiscoverAndQueuePdrs.input.json'
     );

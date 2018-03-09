@@ -1,11 +1,19 @@
-describe("The Hello World workflow", function() {
-  jasmine.DEFAULT_TIMEOUT_INTERVAL = 120000;
-  var workflow = require('@cumulus/integration-tests');
+const workflow = require('@cumulus/integration-tests');
+const { loadConfig } = require('../helpers/testUtils');
+const awsConfig = loadConfig();
 
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 120000;
+
+describe("The Hello World workflow", function() {
   let workflowExecution = null;
 
   beforeAll(async function() {
-    workflowExecution = await workflow.executeWorkflow('aimee-deploy-cumulus', 'cumulus-devseed-internal', 'HelloWorldWorkflow', 'spec/helloWorld/HelloWorld.input.json');
+    workflowExecution = await workflow.executeWorkflow(
+      awsConfig.stackName,
+      awsConfig.bucket,
+      'HelloWorldWorkflow',
+      'spec/helloWorld/HelloWorld.input.json'
+    );
   });
 
   it('executes successfully', function() {
