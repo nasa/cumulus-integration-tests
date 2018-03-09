@@ -1,2 +1,11 @@
 stackName: test-cumulus
 bucket: cumulus-test-sandbox-internal
+DiscoverAndQueuePdrs:
+  meta:
+    stack: test-cumulus
+    buckets:
+      internal: cumulus-test-sandbox-internal
+    templates:
+      ParsePdr: s3://cumulus-test-sandbox-internal/test-cumulus/workflows/ParsePdr.json
+    queues:
+      startSF: https://sqs.us-east-1.amazonaws.com/000000000000/test-cumulus-startSF
