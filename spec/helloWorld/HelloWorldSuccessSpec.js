@@ -5,7 +5,7 @@ describe("The Hello World workflow", function() {
   let workflowExecution = null;
 
   beforeAll(async function() {
-    workflowExecution = await workflow.executeWorkflow('aimee-deploy-cumulus', 'cumulus-devseed-internal', 'HelloWorldWorkflow', 'spec/helloWorld/HelloWorldInput.json');
+    workflowExecution = await workflow.executeWorkflow('aimee-deploy-cumulus', 'cumulus-devseed-internal', 'HelloWorldWorkflow', 'spec/helloWorld/HelloWorld.input.json');
   });
 
   it('executes successfully', function() {
