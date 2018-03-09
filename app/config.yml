@@ -1,32 +1,22 @@
+
 default:
-  stackName: aimee-deploy-cumulus
-  stackNameNoDash: AimeeDeployCumulus
+  stackName: test-cumulus
+  stackNameNoDash: TestCumulus
 
   apiStage: dev
 
   vpc:
-    vpcId: vpc-e61ddf9e
+    vpcId: <change-me> 
     subnets:
-      - subnet-ef13ced0
+      - <change-me>
 
   ecs:
     instanceType: t2.micro
-    desiredInstances: 0
-    availabilityZone: us-east-1e
 
   buckets:
-    internal: cumulus-devseed-internal
-    private: cumulus-devseed-private
-    protected: cumulus-devseed-protected
-    public: cumulus-devseed-public
+    internal: cumulus-test-sandbox-internal
 
   iams:
-    ecsRoleArn: arn:aws:iam::433612427488:role/aimee-deploy-ecs
-    lambdaApiGatewayRoleArn: arn:aws:iam::433612427488:role/aimee-deploy-lambda-api-gateway
-    lambdaProcessingRoleArn: arn:aws:iam::433612427488:role/aimee-deploy-lambda-processing
-    stepRoleArn: arn:aws:iam::433612427488:role/aimee-deploy-steprole
-    instanceProfile: arn:aws:iam::433612427488:instance-profile/aimee-deploy-ecs
-
     urs_url: https://uat.urs.earthdata.nasa.gov/ #make sure to include the trailing slash
 
     # if not specified the value of the apigateway backend endpoint is used
@@ -37,4 +27,4 @@ default:
 
   # URS users who should have access to the dashboard application.
   users:
-    - username: aimeeb
+    - username: lfrederick
