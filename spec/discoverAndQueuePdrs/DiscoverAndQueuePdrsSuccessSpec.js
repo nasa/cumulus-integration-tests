@@ -1,6 +1,15 @@
 const workflow = require('@cumulus/integration-tests');
-const { loadConfig } = require('../helpers/testUtils');
+const { loadConfig, templateInput } = require('../helpers/testUtils');
 const awsConfig = loadConfig();
+const taskName = 'DiscoverAndQueuePdrs';
+
+const inputTemplateFilename = './spec/discoverAndQueuePdrs/DiscoverAndQueuePdrs.input.template.json';
+const templatedInputFilename = './spec/discoverAndQueuePdrs/DiscoverAndQueuePdrs.input.json';
+templateInput({
+  inputTemplateFilename,
+  templatedInputFilename,
+  config: awsConfig[taskName]
+})
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 120000;
 
@@ -11,8 +20,8 @@ describe("The Discover And Queue PDRs workflow", function() {
     workflowExecution = await workflow.executeWorkflow(
       awsConfig.stackName,
       awsConfig.bucket,
-      'DiscoverAndQueuePdrs',
-      'spec/discoverAndQueuePdrs/DiscoverAndQueuePdrs.input.json'
+      taskName,
+      templatedInputFilename
     );
   });
 

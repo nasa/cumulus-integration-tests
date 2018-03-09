@@ -21,7 +21,6 @@
       "protocol": "s3"
     },
     "templates": {
-      "DiscoverPdrs": "s3://cumulus-devseed-internal/aimee-deploy-cumulus/workflows/DiscoverPdrs.json",
       "ParsePdr": "s3://cumulus-devseed-internal/aimee-deploy-cumulus/workflows/ParsePdr.json"
     },
     "queues": {

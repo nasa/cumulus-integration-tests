@@ -27,4 +27,4 @@ default:
 
   # URS users who should have access to the dashboard application.
   users:
-    - username: lfrederick
+    - username: <change-me>
