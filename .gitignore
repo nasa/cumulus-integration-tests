@@ -12,3 +12,4 @@ package-lock.json
 CumulusApiDefault.yml
 CumulusApiV1.yml
 aws-config.override.yml
+spec/discoverAndQueuePdrs/DiscoverAndQueuePdrs.input.json
