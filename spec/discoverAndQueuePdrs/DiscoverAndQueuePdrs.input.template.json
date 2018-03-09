@@ -1,13 +1,12 @@
 {
   "cumulus_meta": {
     "message_source": "sfn",
-    "system_bucket": "cumulus-devseed-internal",
     "state_machine": "",
     "execution_name": ""
   },
   "meta": {
     "workflow_name": "DiscoverPdrs",
-    "stack": "aimee-deploy-cumulus",
+    "stack": "",
     "buckets": {
       "internal": ""
     },
