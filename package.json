@@ -24,8 +24,7 @@
     "jasmine": "^3.1.0",
     "js-yaml": "^3.11.0",
     "kes": "^2.1.2",
-    "node-forge": "^0.7.3",
-    "object-path": "^0.11.4"
+    "node-forge": "^0.7.3"
   },
   "devDependencies": {
     "jasmine-console-reporter": "^2.0.1"
