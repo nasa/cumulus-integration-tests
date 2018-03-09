@@ -26,7 +26,7 @@ HelloWorldWorkflow:
       Type: Fail
       Cause: 'Workflow failed'
 
-DiscoverPdrs:
+DiscoverAndQueuePdrs:
   Comment: 'Discovers new PDRs from a given provider'
   StartAt: StartStatus
   States:
@@ -37,14 +37,28 @@ DiscoverPdrs:
     DiscoverPdrs:
       CumulusConfig:
         templateUri: '{$.meta.templates.ParsePdr}'
-        useQueue: true
-        queueUrl: '{$.meta.queues.startSF}'
         stack: '{$.meta.stack}'
         provider: '{$.meta.provider}'
         bucket: '{$.meta.buckets.internal}'
         collection: '{$.meta.collection}'
       Type: Task
       Resource: ${DiscoverPdrsLambdaFunction.Arn}
+      Catch:
+        - ErrorEquals:
+          - States.ALL
+          ResultPath: '$.exception'
+          Next: StopStatus
+      Next: QueuePdrs
+    QueuePdrs:
+      CumulusConfig:
+        stack: '{$.meta.stack}'
+        bucket: '{$.meta.buckets.internal}'
+        queueUrl: '{$.meta.queues.startSF}'
+        parsePdrMessageTemplateUri: '{$.meta.templates.ParsePdr}'
+        provider: '{$.meta.provider}'
+        collection: '{$.meta.collection}'
+      Type: Task
+      Resource: ${QueuePdrsLambdaFunction.Arn}
       Catch:
         - ErrorEquals:
           - States.ALL
