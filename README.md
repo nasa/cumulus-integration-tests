@@ -18,6 +18,10 @@ npm install
 
 These tests run against AWS, so a Cumulus deployment is needed. Set up the deployment using the configurations in this repository. Deployment instructions are located [here](https://cumulus-nasa.github.io/docs/deployment.html). The dashboard is not needed for these tests.
 
+If you want to use an existing deployment or a different stack name, ensure to update `app/config.yml`, `iam/config.yml` and `deployer/config.yml`.
+
+When tests run, by default tests will use the AWS configuration defined in `aws-config.yml` to try and execute a workflow. These AWS configuration variables can be overriden with `aws-config.override.yml`
+
 Your default AWS credentials should be the same credentials used for the deployment.
 
 Tests are written and run with [jasmine](https://jasmine.github.io/setup/nodejs.html).
