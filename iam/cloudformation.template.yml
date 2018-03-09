@@ -33,7 +33,7 @@ Parameters:
     Default: "cumulus-public"
   SharedBucketName:
     Type: String
-    Default: "cumulus-public"
+    Default: "cumulus-data-shared"
 Resources:
   #DeploymentStack:
   #  Type: AWS::CloudFormation::Stack
@@ -213,6 +213,8 @@ Resources:
                   - !Sub "arn:aws:s3:::${ProtectedBucketName}/*"
                   - !Sub "arn:aws:s3:::${PublicBucketName}"
                   - !Sub "arn:aws:s3:::${PublicBucketName}/*"
+                  - !Sub "arn:aws:s3:::${SharedBucketName}"
+                  - !Sub "arn:aws:s3:::${SharedBucketName}/*"
               # Allow access to dynamoDB
               - Effect: Allow
                 Action:
