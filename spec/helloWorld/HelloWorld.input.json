@@ -1,89 +1,15 @@
 {
   "cumulus_meta": {
     "message_source": "sfn",
-    "system_bucket": "cumulus-test-sandbox-internal",
     "state_machine": "",
-    "execution_name": "",
-    "workflow_start_time": 1519832299820
+    "execution_name": ""
   },
   "meta": {
     "workflow_name": "HelloWorldWorkflow",
-    "stack": "test-cumulus",
-    "buckets": {
-      "internal": "cumulus-test-sandbox-internal",
-      "private": "change-me",
-      "protected": "change-me",
-      "public": "change-me"
-    },
-    "cmr": {
-      "username": "devseed",
-      "provider": "CUMULUS",
-      "clientId": "CUMULUS",
-      "password": "nopassword"
-    },
-    "distribution_endpoint": "https://yupnyh0vve.execute-api.us-east-1.amazonaws.com/dev/",
-    "collection": {
-      "process": "aster",
-      "granuleIdExtraction": "^pg-[P|B]R(1A.*)$",
-      "stats": {
-        "running": 0,
-        "total": 34038,
-        "completed": 33788,
-        "failed": 250
-      },
-      "version": "003",
-      "dataType": "AST_L1A",
-      "timestamp": 1517419140913,
-      "createdAt": 1508348291946,
-      "name": "AST_L1A",
-      "duplicateHandling": "replace",
-      "provider_path": "/TEST_B/Cumulus/PDR/",
-      "queriedAt": "2018-02-28T15:36:36.536Z",
-      "files": [
-        {
-          "bucket": "private",
-          "sampleFileName": "pg-PR1A0000-2016121001_000_001",
-          "regex": "^(pg-PR1A[0-9]{4}-[0-9]{10}_[0-9]{3}_[0-9]{3})$"
-        },
-        {
-          "bucket": "protected",
-          "sampleFileName": "AST_L1A_00301052017002700_02242017094829.hdf",
-          "regex": "^AST_L1A_[\\d]*_[\\d]*\\.hdf$"
-        },
-        {
-          "bucket": "private",
-          "sampleFileName": "pg-BR1A0000-2016121001_000_001",
-          "regex": "^(pg-BR1A[0-9]{4}-[0-9]{10}_[0-9]{3}_[0-9]{3})$"
-        },
-        {
-          "bucket": "protected",
-          "sampleFileName": "AST_L1A_00301052017002700_02242017094829.cmr.xml",
-          "regex": "^AST_L1A_[\\d]*_[\\d]*\\.cmr\\.xml$"
-        },
-        {
-          "bucket": "public",
-          "sampleFileName": "AST_L1A_00301052017002700_02242017094829_2.jpg",
-          "regex": "^AST_L1A_[\\d]*_[\\d]*_.*\\.jpg$"
-        }
-      ],
-      "updatedAt": 1519832224970,
-      "granuleId": "^1A[\\d]{4}-[\\d]{10}_[\\d]{3}_[\\d]{3}$",
-      "sampleFileName": "pg-PR1A0000-2016121001_001_011"
-    },
-    "provider": {
-      "createdAt": 1519832172436,
-      "id": "PROV1",
-      "host": "http://www.google.com",
-      "globalConnectionLimit": 10,
-      "updatedAt": 1519832172436,
-      "protocol": "http"
-    },
-    "templates": {
-      "HelloWorldWorkflow": "s3://cumulus-test-sandbox-internal/test-cumulus/workflows/HelloWorldWorkflow.json"
-    },
-    "queues": {
-      "startSF": "https://sqs.us-east-1.amazonaws.com/000000000/test-cumulus-startSF"
-    }
+    "collection": {},
+    "provider": {},
+    "templates": {},
+    "queues": {}
   },
   "workflow_config": {
     "StartStatus": {},
