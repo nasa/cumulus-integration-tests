@@ -1,5 +1,7 @@
 #  Cumulus Integration Test Project
 
+[![CircleCI](https://circleci.com/gh/cumulus-nasa/cumulus-integration-tests.svg?style=svg)](https://circleci.com/gh/cumulus-nasa/cumulus-integration-tests)
+
 ## What is Cumulus?
 
 Cumulus is a cloud-based data ingest, archive, distribution and management

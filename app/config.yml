@@ -6,9 +6,9 @@ default:
   apiStage: dev
 
   vpc:
-    vpcId: <change-me> 
+    vpcId: '{{VPC_ID}}' 
     subnets:
-      - <change-me>
+      - '{{AWS_SUBNET}}'
 
   ecs:
     instanceType: t2.micro
@@ -17,7 +17,12 @@ default:
     internal: cumulus-test-sandbox-internal
 
   iams:
-    urs_url: https://uat.urs.earthdata.nasa.gov/ #make sure to include the trailing slash
+    ecsRoleArn: 'arn:aws:iam::{{AWS_ACCOUNT_ID}}:role/test-cumulus-ecs'
+    lambdaApiGatewayRoleArn: 'arn:aws:iam::{{AWS_ACCOUNT_ID}}:role/test-cumulus-lambda-api-gateway'
+    lambdaProcessingRoleArn: 'arn:aws:iam::{{AWS_ACCOUNT_ID}}:role/test-cumulus-lambda-processing'
+    stepRoleArn: 'arn:aws:iam::{{AWS_ACCOUNT_ID}}:role/test-cumulus-steprole'
+
+  urs_url: https://uat.urs.earthdata.nasa.gov/ #make sure to include the trailing slash
 
     # if not specified the value of the apigateway backend endpoint is used
     # api_backend_url: https://apigateway-url-to-api-backend/ #make sure to include the trailing slash
