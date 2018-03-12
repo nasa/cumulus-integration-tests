@@ -1,11 +1,12 @@
 default:
-  prefix: test-cumulus
-  stackName: test-cumulus-iam
+  prefix: aimee-deploy
+  stackName: aimee-deploy-iam
   authorizor: false
   capabilities:
     - CAPABILITY_NAMED_IAM
   buckets:
-    internal: cumulus-test-sandbox-internal
+    internal: cumulus-devseed-internal
+    private: cumulus-devseed-private
 
   params:
      - name: ResourcePrefix
