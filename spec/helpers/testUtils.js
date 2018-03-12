@@ -17,7 +17,7 @@ function templateInput({ inputTemplateFilename, config, templatedInputFilename }
   const inputTemplate = JSON.parse(fs.readFileSync(inputTemplateFilename));
   const templatedInput = merge(clonedeep(inputTemplate), config);
   let jsonString = JSON.stringify(templatedInput, null, 2);
-  jsonString = readyString.replace('{{AWS_ACCOUNT_ID}}', process.env.AWS_ACCOUNT_ID);
+  jsonString = jsonString.replace('{{AWS_ACCOUNT_ID}}', process.env.AWS_ACCOUNT_ID);
   return fs.writeFileSync(templatedInputFilename, jsonString);
 };
 
