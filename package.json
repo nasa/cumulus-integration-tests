@@ -33,7 +33,6 @@
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "babel-register": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "jasmine-console-reporter": "^2.0.1"
   }
