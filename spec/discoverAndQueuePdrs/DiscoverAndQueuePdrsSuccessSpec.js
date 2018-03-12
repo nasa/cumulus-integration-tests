@@ -1,4 +1,5 @@
 const workflow = require('@cumulus/integration-tests');
+const aws = require('@cumulus/common/aws');
 const { loadConfig, templateInput } = require('../helpers/testUtils');
 const awsConfig = loadConfig();
 const taskName = 'DiscoverAndQueuePdrs';
@@ -9,20 +10,25 @@ templateInput({
   inputTemplateFilename,
   templatedInputFilename,
   config: awsConfig[taskName]
-})
+});
+const pdrFilename = 'MOD09GQ_1granule_v3.PDR';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 120000;
 
 describe("The Discover And Queue PDRs workflow", function() {
   let workflowExecution = null;
 
-  beforeAll(async function() {
+  beforeAll(async () => {
     workflowExecution = await workflow.executeWorkflow(
       awsConfig.stackName,
       awsConfig.bucket,
       taskName,
       templatedInputFilename
     );
+  });
+
+  afterAll(async () => {
+    await aws.deleteS3Object(awsConfig.bucket, `${awsConfig.stackName}/pdrs/${pdrFilename}`);
   });
 
   it('executes successfully', function() {
@@ -38,7 +44,7 @@ describe("The Discover And Queue PDRs workflow", function() {
 
     it("has expected path and name output", function() {
       expect(lambdaPayload.pdrs[0].path).toEqual('cumulus-test-data/pdrs');
-      expect(lambdaPayload.pdrs[0].name).toEqual('MOD09GQ_1granule_v3.PDR');
+      expect(lambdaPayload.pdrs[0].name).toEqual(pdrFilename);
     });
   });
 
