@@ -17,7 +17,7 @@ const pdrFilename = 'MOD09GQ_1granule_v3.PDR';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 120000;
 
-describe("The Discover And Queue PDRs workflow", function() {
+describe("The Parse PDR workflow", function() {
   let workflowExecution = null;
 
   beforeAll(async () => {
@@ -37,7 +37,7 @@ describe("The Discover And Queue PDRs workflow", function() {
     expect(workflowExecution.status).toEqual('SUCCEEDED');
   });
 
-  describe("the Parse Lambda", function() {
+  describe("the ParsePdr Lambda", function() {
     let lambdaPayload = null;
 
     beforeAll(async function() {
