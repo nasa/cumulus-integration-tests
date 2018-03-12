@@ -32,6 +32,12 @@ PdrStatusCheck:
   source: 'node_modules/@cumulus/pdr-status-check/dist/'
   useMessageAdapter: true
 
+QueueGranules:
+  handler: index.handler
+  timeout: 300
+  source: 'node_modules/@cumulus/queue-granules/dist/'
+  useMessageAdapter: true
+
 SyncGranule:
   handler: index.handler
   timeout: 300
