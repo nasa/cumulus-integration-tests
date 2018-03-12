@@ -15,6 +15,7 @@
     "@cumulus/discover-pdrs": "^1.1.0",
     "@cumulus/hello-world": "^1.1.0",
     "@cumulus/integration-tests": "^1.1.0",
+    "@cumulus/parse-pdr": "^1.1.1",
     "@cumulus/queue-pdrs": "^1.1.0",
     "jasmine": "^3.1.0",
     "js-yaml": "^3.11.0",

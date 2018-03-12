@@ -76,3 +76,63 @@ DiscoverAndQueuePdrs:
     WorkflowFailed:
       Type: Fail
       Cause: 'Workflow failed'
+
+ParsePdr:
+  Comment: 'Parse a given PDR'
+  StartAt: StatusReport
+  States:
+    StatusReport:
+      Type: Task
+      Resource: ${sf2snsStartLambdaFunction.Arn}
+      Next: ParsePdr
+    ParsePdr:
+      CumulusConfig:
+        provider: '{$.meta.provider}'
+        collection: '{$.meta.collection}'
+        bucket: '{$.meta.buckets.internal}'
+        stack: '{$.meta.stack}'
+        templateUri: '{$.meta.templates.IngestGranule}'
+        queueUrl: '{$.meta.queues.startSF}'
+      Type: Task
+      Resource: ${ParsePdrLambdaFunction.Arn}
+      Catch:
+        - ErrorEquals:
+          - States.ALL
+          ResultPath: '$.exception'
+          Next: StopStatus
+      Next: CheckStatus
+    CheckStatus:
+      Type: Task
+      Resource: ${PdrStatusCheckLambdaFunction.Arn}
+      Catch:
+        - ErrorEquals:
+          - States.ALL
+          ResultPath: '$.exception'
+          Next: StopStatus
+      Next: CheckAgainChoice
+    CheckAgainChoice:
+      Type: Choice
+      Choices:
+        - Variable: $.payload.isFinished
+          BooleanEquals: false
+          Next: WaitForSomeTime
+        - Variable: $.payload.isFinished
+          BooleanEquals: true
+          Next: StopStatus
+      Default: StopStatus
+    WaitForSomeTime:
+      Type: Wait
+      Seconds: 120
+      Next: CheckStatus
+    StopStatus:
+      Type: Task
+      Resource: ${sf2snsEndLambdaFunction.Arn}
+      Catch:
+        - ErrorEquals:
+          - States.ALL
+          Next: WorkflowFailed
+      End: true
+    WorkflowFailed:
+      Type: Fail
+      Cause: 'Workflow failed'
+

@@ -18,3 +18,10 @@ QueuePdrs:
   source: 'node_modules/@cumulus/queue-pdrs/dist/'
   useMessageAdapter: true
   logToElasticSearch: true
+
+ParsePdr:
+  handler: index.handler
+  timeout: 300
+  source: 'node_modules/@cumulus/parse-pdr/dist/'
+  useMessageAdapter: true
+  logToElasticSearch: true
