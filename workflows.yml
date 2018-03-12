@@ -1,4 +1,3 @@
-
 HelloWorldWorkflow:
   Comment: 'Returns Hello World'
   StartAt: StartStatus
@@ -14,6 +13,57 @@ HelloWorldWorkflow:
         collection: '{$.meta.collection}'
       Type: Task
       Resource: ${HelloWorldLambdaFunction.Arn}
+      Next: StopStatus
+    StopStatus:
+      Type: Task
+      Resource: ${sf2snsEndLambdaFunction.Arn}
+      Catch:
+        - ErrorEquals:
+          - States.ALL
+          Next: WorkflowFailed
+      End: true
+    WorkflowFailed:
+      Type: Fail
+      Cause: 'Workflow failed'
+
+DiscoverAndQueuePdrs:
+  Comment: 'Discovers new PDRs from a given provider'
+  StartAt: StartStatus
+  States:
+    StartStatus:
+      Type: Task
+      Resource: ${sf2snsStartLambdaFunction.Arn}
+      Next: DiscoverPdrs
+    DiscoverPdrs:
+      CumulusConfig:
+        templateUri: '{$.meta.templates.ParsePdr}'
+        stack: '{$.meta.stack}'
+        provider: '{$.meta.provider}'
+        bucket: '{$.meta.buckets.internal}'
+        collection: '{$.meta.collection}'
+      Type: Task
+      Resource: ${DiscoverPdrsLambdaFunction.Arn}
+      Catch:
+        - ErrorEquals:
+          - States.ALL
+          ResultPath: '$.exception'
+          Next: StopStatus
+      Next: QueuePdrs
+    QueuePdrs:
+      CumulusConfig:
+        stack: '{$.meta.stack}'
+        bucket: '{$.meta.buckets.internal}'
+        queueUrl: '{$.meta.queues.startSF}'
+        parsePdrMessageTemplateUri: '{$.meta.templates.ParsePdr}'
+        provider: '{$.meta.provider}'
+        collection: '{$.meta.collection}'
+      Type: Task
+      Resource: ${QueuePdrsLambdaFunction.Arn}
+      Catch:
+        - ErrorEquals:
+          - States.ALL
+          ResultPath: '$.exception'
+          Next: StopStatus
       Next: StopStatus
     StopStatus:
       Type: Task

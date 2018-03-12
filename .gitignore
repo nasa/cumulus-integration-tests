@@ -11,3 +11,5 @@ package-lock.json
 /deployer/cloudformation.yml
 CumulusApiDefault.yml
 CumulusApiV1.yml
+aws-config.override.yml
+spec/discoverAndQueuePdrs/DiscoverAndQueuePdrs.input.json

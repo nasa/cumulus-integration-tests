@@ -1,0 +1,51 @@
+{
+  "cumulus_meta": {
+    "message_source": "sfn",
+    "state_machine": "",
+    "execution_name": ""
+  },
+  "meta": {
+    "workflow_name": "DiscoverPdrs",
+    "stack": "",
+    "buckets": {
+      "internal": ""
+    },
+    "collection": {
+      "provider_path": "cumulus-test-data/pdrs"
+    },
+    "provider": {
+      "id": "s3_provider",
+      "host": "cumulus-data-shared",
+      "globalConnectionLimit": 10,
+      "protocol": "s3"
+    },
+    "templates": {
+      "ParsePdr": ""
+    },
+    "queues": {
+      "startSF": ""
+    }
+  },
+  "workflow_config": {
+    "StartStatus": {},
+    "DiscoverPdrs": {
+      "templateUri": "{{$.meta.templates.DiscoverPdrs}}",
+      "stack": "{{$.meta.stack}}",
+      "provider": "{{$.meta.provider}}",
+      "bucket": "{{$.meta.buckets.internal}}",
+      "collection": "{{$.meta.collection}}"
+    },
+    "QueuePdrs": {
+      "parsePdrMessageTemplateUri": "{{$.meta.templates.ParsePdr}}",
+      "queueUrl": "{{$.meta.queues.startSF}}",
+      "stack": "{{$.meta.stack}}",
+      "provider": "{{$.meta.provider}}",
+      "bucket": "{{$.meta.buckets.internal}}",
+      "collection": "{{$.meta.collection}}"
+    },
+    "StopStatus": {},
+    "WorkflowFailed": {}
+  },
+  "payload": {},
+  "exception": null
+}
