@@ -36,7 +36,7 @@ describe("The Discover And Queue PDRs workflow", function() {
       lambdaPayload = await workflow.getLambdaOutput(workflowExecution.executionArn, "DiscoverPdrs");
     });
 
-    it("has expdected path and name output", function() {
+    it("has expected path and name output", function() {
       expect(lambdaPayload.pdrs[0].path).toEqual('cumulus-test-data/pdrs');
       expect(lambdaPayload.pdrs[0].name).toEqual('MOD09GQ_1granule_v3.PDR');
     });
