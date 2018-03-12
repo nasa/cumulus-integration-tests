@@ -1,6 +1,6 @@
 stackName: test-cumulus
 bucket: cumulus-test-sandbox-internal
-DiscoverAndQueuePdrs:
+DiscoverAndQueuePdrs: &defaults
   meta:
     stack: test-cumulus
     buckets:
@@ -9,3 +9,4 @@ DiscoverAndQueuePdrs:
       ParsePdr: s3://cumulus-test-sandbox-internal/test-cumulus/workflows/ParsePdr.json
     queues:
       startSF: https://sqs.us-east-1.amazonaws.com/{{AWS_ACCOUNT_ID}}/test-cumulus-startSF
+ParsePdr: *defaults
