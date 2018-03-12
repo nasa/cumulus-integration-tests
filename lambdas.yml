@@ -31,3 +31,10 @@ PdrStatusCheck:
   timeout: 300
   source: 'node_modules/@cumulus/pdr-status-check/dist/'
   useMessageAdapter: true
+
+SyncGranule:
+  handler: index.handler
+  timeout: 300
+  logToElasticSearch: true
+  source: 'node_modules/@cumulus/sync-granule/dist/'
+  useMessageAdapter: true
