@@ -25,3 +25,9 @@ ParsePdr:
   source: 'node_modules/@cumulus/parse-pdr/dist/'
   useMessageAdapter: true
   logToElasticSearch: true
+
+PdrStatusCheck:
+  handler: index.handler
+  timeout: 300
+  source: 'node_modules/@cumulus/pdr-status-check/dist/'
+  useMessageAdapter: true

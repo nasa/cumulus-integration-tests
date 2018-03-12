@@ -89,7 +89,7 @@ ParsePdr:
       CumulusConfig:
         provider: '{$.meta.provider}'
         collection: '{$.meta.collection}'
-        bucket: '{$.meta.buckets.internal}'
+        bucket: '{$.meta.buckets.shared}'
         stack: '{$.meta.stack}'
         templateUri: '{$.meta.templates.IngestGranule}'
         queueUrl: '{$.meta.queues.startSF}'
