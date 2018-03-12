@@ -4,7 +4,7 @@
   "description": "Cumulus Integration Test Deployment",
   "main": "index.js",
   "scripts": {
-    "test": "jasmine",
+    "test": "babel-node spec/run.js",
     "deploy": "kes cf deploy --kes-folder app --region us-east-1 --template node_modules/@cumulus/deployment/app"
   },
   "author": "Cumulus Authors",
