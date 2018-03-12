@@ -8,4 +8,4 @@ DiscoverAndQueuePdrs:
     templates:
       ParsePdr: s3://cumulus-test-sandbox-internal/test-cumulus/workflows/ParsePdr.json
     queues:
-      startSF: https://sqs.us-east-1.amazonaws.com/000000000000/test-cumulus-startSF
+      startSF: https://sqs.us-east-1.amazonaws.com/cumulus-sndbx/test-cumulus-startSF
