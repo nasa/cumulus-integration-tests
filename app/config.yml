@@ -32,4 +32,4 @@ default:
 
   # URS users who should have access to the dashboard application.
   users:
-    - username: ''
+    - username: testuser
