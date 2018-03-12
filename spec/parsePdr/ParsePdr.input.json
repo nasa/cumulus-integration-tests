@@ -1,0 +1,54 @@
+{
+  "cumulus_meta": {
+    "message_source": "sfn",
+    "state_machine": "",
+    "execution_name": ""
+  },
+  "meta": {
+    "workflow_name": "ParsePdr",
+    "stack": "aimee-deploy-cumulus",
+    "buckets": {
+      "internal": "cumulus-devseed-internal"
+    },
+    "collection": {
+      "provider_path": "cumulus-test-data/pdrs"
+    },
+    "provider": {
+      "host": "cumulus-data-shared",
+      "globalConnectionLimit": 10,
+      "protocol": "s3",
+      "id": "s3_provider"
+    },
+    "templates": {
+      "ParsePdr": "s3://cumulus-devseed-internal/aimee-deploy-cumulus/workflows/ParsePdr.json"
+    },
+    "queues": {
+      "startSF": "https://sqs.us-east-1.amazonaws.com/433612427488/aimee-deploy-cumulus-startSF"
+    }
+  },
+  "workflow_config": {
+    "StatusReport": {},
+    "ParsePdr": {
+      "provider": "{{$.meta.provider}}",
+      "collection": "{{$.meta.collection}}",
+      "bucket": "{{$.meta.buckets.internal}}",
+      "stack": "{{$.meta.stack}}",
+      "templateUri": "{{$.meta.templates.IngestGranule}}",
+      "queueUrl": "{{$.meta.queues.startSF}}"
+    },
+    "CheckStatus": {},
+    "CheckAgainChoice": {},
+    "WaitForSomeTime": {},
+    "StopStatus": {},
+    "WorkflowFailed": {}
+  },
+  "payload": {
+    "pdr": {
+      "path": "cumulus-test-data/pdrs",
+      "time": 1520873050000,
+      "name": "MOD09GQ_1granule_v3.PDR",
+      "size": 596
+    }
+  },
+  "exception": null
+}
