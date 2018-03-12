@@ -11,7 +11,8 @@
       "internal": ""
     },
     "collection": {
-      "provider_path": "cumulus-test-data/pdrs"
+      "provider_path": "cumulus-test-data/pdrs",
+      "files": []
     },
     "provider": {
       "host": "cumulus-data-shared",
@@ -30,9 +31,15 @@
       "provider": "{{$.meta.provider}}",
       "collection": "{{$.meta.collection}}",
       "bucket": "{{$.meta.buckets.internal}}",
-      "stack": "{{$.meta.stack}}",
-      "templateUri": "{{$.meta.templates.IngestGranule}}",
-      "queueUrl": "{{$.meta.queues.startSF}}"
+      "stack": "{{$.meta.stack}}"
+    },
+    "QueueGranules": {
+      "provider": "{{$.meta.provider}}",
+      "collection": "{{$.meta.collection}}",
+      "granuleIngestMessageTemplateUri": "{{$.meta.templates.IngestGranule}}",
+      "queueUrl": "{{$.meta.queues.startSF}}",
+      "bucket": "{{$.meta.buckets.internal}}",
+      "stack": "{{$.meta.stack}}"
     },
     "CheckStatus": {},
     "CheckAgainChoice": {},

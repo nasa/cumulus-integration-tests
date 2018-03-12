@@ -48,4 +48,16 @@ describe("The Parse PDR workflow", function() {
       expect(lambdaPayload).toEqual(expectedParsePdrOutput);
     });
   });
+
+  describe('the QueueGranules Lambda', () => {
+    let lambdaPayload = null;
+
+    beforeAll(async function() {
+      lambdaPayload = await workflow.getLambdaOutput(workflowExecution.executionArn, "QueueGranules");
+    });
+
+    it("has expected path and name output", function() {
+      expect(lambdaPayload).toEqual({ granules_queued: 1 });
+    });
+  });
 });
