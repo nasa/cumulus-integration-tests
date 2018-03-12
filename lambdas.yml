@@ -11,8 +11,6 @@ DiscoverPdrs:
   source: 'node_modules/@cumulus/discover-pdrs/dist/'
   useMessageAdapter: true
   logToElasticSearch: true
-  envs:
-    internal: '{{buckets.internal}}'
 
 QueuePdrs:
   handler: index.handler
@@ -20,5 +18,3 @@ QueuePdrs:
   source: 'node_modules/@cumulus/queue-pdrs/dist/'
   useMessageAdapter: true
   logToElasticSearch: true
-  envs:
-    internal: '{{buckets.internal}}'
