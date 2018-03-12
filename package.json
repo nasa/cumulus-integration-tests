@@ -9,6 +9,14 @@
   },
   "author": "Cumulus Authors",
   "license": "Apache-2.0",
+  "babel": {
+    "presets": [
+      "es2015"
+    ],
+    "plugins": [
+      "transform-async-to-generator"
+    ]
+  },
   "dependencies": {
     "@cumulus/api": "^1.1.0",
     "@cumulus/deployment": "^1.1.0",
@@ -23,6 +31,9 @@
     "node-forge": "^0.7.3"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-preset-es2015": "^6.24.1",
     "jasmine-console-reporter": "^2.0.1"
   }
 }
