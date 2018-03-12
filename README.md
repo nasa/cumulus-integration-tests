@@ -20,17 +20,27 @@ npm install
 
 These tests run against AWS, so a Cumulus deployment is needed. Set up the deployment using the configurations in this repository. Deployment instructions are located [here](https://cumulus-nasa.github.io/docs/deployment.html). The dashboard is not needed for these tests.
 
-If you want to use an existing deployment or a different stack name, ensure to update `app/config.yml`, `iam/config.yml` and `deployer/config.yml`.
-
-When tests run, by default tests will use the AWS configuration defined in `aws-config.yml` to try and execute a workflow. These AWS configuration variables can be overriden with `aws-config.override.yml`
+### Using a different stack than `test-cumulus`
 
 Your default AWS credentials should be the same credentials used for the deployment.
 
-Tests are written and run with [jasmine](https://jasmine.github.io/setup/nodejs.html).
+If you want to use an existing deployment or a different stack name, ensure to update `app/config.yml`, `iam/config.yml` and `deployer/config.yml`.
+
+When tests run, by default tests will use the AWS configuration defined in `aws-config.yml` to try and execute a workflow. These AWS configuration variables can be overriden with `aws-config.override.yml`. Using an override file is required if using a stack other than `test-cumulus`.
+
+To access test data in `s3://cumulus-data-shared` - required at this time by at least `DiscoverAndQueuePdrsSuccessSpec.js` - the lambda processing role for your deployment must have access to this bucket. This can be done by redeploying your IAM stack using the cloudformation template in the `iam/` directory. This IAM deployment creates a reference to `SharedBucketName` as `cumulus-data-shared` and adds `cumulus-data-shared` as part of the access policy for `LambdaProcessingRole`. However, for the deployment to grant this access, it requires you run the kes deployment as the root user for the aws account associated with your deployment.
 
 ### Run all tests
 
+Tests are written and run with [jasmine](https://jasmine.github.io/setup/nodejs.html).
+
 To run all of the tests, run `jasmine` in the top level of the repository.
+
+When running tests locally, include the `AWS_ACCOUNT_ID` of your deployment, e.g.:
+
+```bash
+AWS_ACCOUNT_ID=000000000000 jasmine
+```
 
 ### Run tests for an individual test file
 
