@@ -19,9 +19,7 @@
       "globalConnectionLimit": 10,
       "protocol": "s3"
     },
-    "templates": {
-      "ParsePdr": ""
-    },
+    "templates": {},
     "queues": {
       "startSF": ""
     }

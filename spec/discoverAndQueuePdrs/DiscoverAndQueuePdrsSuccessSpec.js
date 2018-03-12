@@ -58,5 +58,5 @@ describe("The Discover And Queue PDRs workflow", function() {
     it("output is pdrs_queued", function() {
       expect(lambdaPayload).toEqual({ pdrs_queued: 1 });
     });
-  });  
+  });
 });
