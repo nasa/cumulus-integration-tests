@@ -6,6 +6,6 @@ DiscoverAndQueuePdrs:
     buckets:
       internal: cumulus-test-sandbox-internal
     templates:
-      ParsePdr: s3://cumulus-test-sandbox-internal/test-cumulus/workflows/ParsePdr.json
+      ParsePdr: s3://cumulus-test-sandbox-internal/test-cumulus/workflows/DiscoverAndQueuePdrs.json
     queues:
       startSF: https://sqs.us-east-1.amazonaws.com/cumulus-sndbx/test-cumulus-startSF
