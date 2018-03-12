@@ -91,10 +91,24 @@ ParsePdr:
         collection: '{$.meta.collection}'
         bucket: '{$.meta.buckets.internal}'
         stack: '{$.meta.stack}'
-        templateUri: '{$.meta.templates.IngestGranule}'
-        queueUrl: '{$.meta.queues.startSF}'
       Type: Task
       Resource: ${ParsePdrLambdaFunction.Arn}
+      Catch:
+        - ErrorEquals:
+          - States.ALL
+          ResultPath: '$.exception'
+          Next: StopStatus
+      Next: QueueGranules
+    QueueGranules:
+      CumulusConfig:
+        provider: '{$.meta.provider}'
+        collection: '{$.meta.collection}'
+        bucket: '{$.meta.buckets.internal}'
+        stack: '{$.meta.stack}'
+        granuleIngestMessageTemplateUri: '{$.meta.templates.IngestGranule}'
+        queueUrl: '{$.meta.queues.startSF}'
+      Type: Task
+      Resource: ${QueueGranulesLambdaFunction.Arn}
       Catch:
         - ErrorEquals:
           - States.ALL
@@ -157,11 +171,6 @@ IngestGranule:
               destination: '{$.payload}'
       Type: Task
       Resource: ${SyncGranuleLambdaFunction.Arn}
-      Retry:
-        - ErrorEquals:
-            - States.ALL
-          IntervalSeconds: 10
-          MaxAttempts: 3
       Catch:
         - ErrorEquals:
           - States.ALL
