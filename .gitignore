@@ -11,9 +11,7 @@ package-lock.json
 /deployer/cloudformation.yml
 CumulusApiDefault.yml
 CumulusApiV1.yml
-spec/config.override.yml
 yarn.lock
-spec/discoverAndQueuePdrs/DiscoverAndQueuePdrs.input.json
-spec/parsePdr/ParsePdr.input.json
-spec/ingestGranule/IngestGranule.input.json
-spec/ingestGranule/IngestGranule.output.payload.json
+spec/config.override.yml
+spec/**/*.input.json
+spec/**/*.output.payload.json
