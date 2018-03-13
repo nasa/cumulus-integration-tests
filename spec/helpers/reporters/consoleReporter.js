@@ -1,4 +1,3 @@
-const jasmine = require('jasmine');
 const JasmineConsoleReporter = require('jasmine-console-reporter');
 
 const consoleReporter = new JasmineConsoleReporter({
