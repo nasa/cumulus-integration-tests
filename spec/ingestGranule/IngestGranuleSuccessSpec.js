@@ -6,15 +6,15 @@ const { loadConfig, templateInput } = require('../helpers/testUtils');
 const awsConfig = loadConfig();
 const taskName = 'IngestGranule';
 
-const inputTemplateFilename = './spec/ingestGranules/IngestGranules.input.template.json';
-const templatedInputFilename = './spec/ingestGranules/IngestGranules.input.json';
+const inputTemplateFilename = './spec/ingestGranule/IngestGranule.input.template.json';
+const templatedInputFilename = './spec/ingestGranule/IngestGranule.input.json';
 templateInput({
   inputTemplateFilename,
   templatedInputFilename,
   config: awsConfig[taskName]
 });
 
-const outputPayloadTemplateFilename = './spec/ingestGranules/IngestGranules.output.payload.template.json'
+const outputPayloadTemplateFilename = './spec/ingestGranule/IngestGranule.output.payload.template.json'
 const templatedOutputPayloadFilename = outputPayloadTemplateFilename.replace('.template', '');
 templateInput({
   inputTemplateFilename: outputPayloadTemplateFilename,
