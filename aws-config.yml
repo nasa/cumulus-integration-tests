@@ -5,7 +5,7 @@ DiscoverAndQueuePdrs: &defaults
     stack: test-cumulus
     buckets:
       internal: cumulus-test-sandbox-internal
-      private: cumulus-test-sandbox-internal
+      private: cumulus-test-sandbox-private
     templates:
       ParsePdr: s3://cumulus-test-sandbox-internal/test-cumulus/workflows/ParsePdr.json
       IngestGranule: s3://cumulus-test-sandbox-internal/test-cumulus/workflows/IngestGranule.json
