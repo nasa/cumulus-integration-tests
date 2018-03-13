@@ -18,7 +18,7 @@ jasmine.DEFAULT_TIMEOUT_INTERVAL = 120000;
 describe("The Parse PDR workflow", function() {
   let workflowExecution = null;
 
-  beforeAll(async () => {
+  beforeAll(async function() {
     workflowExecution = await workflow.executeWorkflow(
       awsConfig.stackName,
       awsConfig.bucket,
