@@ -12,6 +12,7 @@ package-lock.json
 CumulusApiDefault.yml
 CumulusApiV1.yml
 aws-config.override.yml
+yarn.lock
 spec/discoverAndQueuePdrs/DiscoverAndQueuePdrs.input.json
 spec/parsePdr/ParsePdr.input.json
 spec/ingestGranule/IngestGranule.input.json
