@@ -11,7 +11,7 @@ function loadConfig() {
     configFileName = overrideConfigFilename;
   }
   return yaml.safeLoad(fs.readFileSync(configFileName), 'utf8');
-};
+}
 
 function templateFile({ inputTemplateFilename, config }) {
   const inputTemplate = JSON.parse(fs.readFileSync(inputTemplateFilename));
@@ -21,7 +21,7 @@ function templateFile({ inputTemplateFilename, config }) {
   const templatedInputFilename = inputTemplateFilename.replace('.template', '');
   fs.writeFileSync(templatedInputFilename, jsonString);
   return templatedInputFilename;
-};
+}
 
 module.exports = {
   loadConfig,

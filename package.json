@@ -4,18 +4,21 @@
   "description": "Cumulus Integration Test Deployment",
   "main": "index.js",
   "scripts": {
-    "test": "babel-node spec/run.js",
+    "test": "jasmine",
     "deploy": "kes cf deploy --kes-folder app --region us-east-1 --template node_modules/@cumulus/deployment/app"
   },
   "author": "Cumulus Authors",
   "license": "Apache-2.0",
   "babel": {
     "presets": [
-      ["env", {
-        "targets": {
-          "node": "6.10"
+      [
+        "env",
+        {
+          "targets": {
+            "node": "6.10"
+          }
         }
-      }]
+      ]
     ]
   },
   "dependencies": {
@@ -29,7 +32,6 @@
     "@cumulus/queue-granules": "^1.1.1",
     "@cumulus/queue-pdrs": "^1.1.0",
     "@cumulus/sync-granule": "^1.1.1",
-    "jasmine": "^3.1.0",
     "js-yaml": "^3.11.0",
     "kes": "^2.1.2",
     "lodash": "^4.17.5",
@@ -37,8 +39,11 @@
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "babel-register": "^6.26.0",
     "babel-preset-env": "^1.6.1",
+    "babel-register": "^6.26.0",
+    "eslint": "^4.18.2",
+    "eslint-plugin-jsdoc": "^3.5.0",
+    "jasmine": "^3.1.0",
     "jasmine-console-reporter": "^2.0.1"
   }
 }
