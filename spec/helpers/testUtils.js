@@ -13,15 +13,17 @@ function loadConfig() {
   return yaml.safeLoad(fs.readFileSync(configFileName), 'utf8');
 };
 
-function templateInput({ inputTemplateFilename, config, templatedInputFilename }) {
+function templateFile({ inputTemplateFilename, config }) {
   const inputTemplate = JSON.parse(fs.readFileSync(inputTemplateFilename));
   const templatedInput = merge(clonedeep(inputTemplate), config);
   let jsonString = JSON.stringify(templatedInput, null, 2);
   jsonString = jsonString.replace('{{AWS_ACCOUNT_ID}}', process.env.AWS_ACCOUNT_ID);
-  return fs.writeFileSync(templatedInputFilename, jsonString);
+  const templatedInputFilename = inputTemplateFilename.replace('.template', '');
+  fs.writeFileSync(templatedInputFilename, jsonString);
+  return templatedInputFilename;
 };
 
 module.exports = {
   loadConfig,
-  templateInput
+  templateFile
 };

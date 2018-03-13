@@ -1,15 +1,13 @@
 const fs = require('fs');
 const workflow = require('@cumulus/integration-tests');
 const aws = require('@cumulus/common/aws');
-const { loadConfig, templateInput } = require('../helpers/testUtils');
+const { loadConfig, templateFile } = require('../helpers/testUtils');
 const awsConfig = loadConfig();
 const taskName = 'ParsePdr';
 
 const inputTemplateFilename = './spec/parsePdr/ParsePdr.input.template.json';
-const templatedInputFilename = './spec/parsePdr/ParsePdr.input.json';
-templateInput({
+const templatedInputFilename = templateFile({
   inputTemplateFilename,
-  templatedInputFilename,
   config: awsConfig[taskName]
 });
 const expectedParsePdrOutput = JSON.parse(fs.readFileSync('./spec/parsePdr/ParsePdr.output.json'));

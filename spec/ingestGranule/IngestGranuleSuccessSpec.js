@@ -2,23 +2,19 @@ const fs = require('fs');
 const workflow = require('@cumulus/integration-tests');
 const aws = require('@cumulus/common/aws');
 
-const { loadConfig, templateInput } = require('../helpers/testUtils');
+const { loadConfig, templateFile } = require('../helpers/testUtils');
 const awsConfig = loadConfig();
 const taskName = 'IngestGranule';
 
 const inputTemplateFilename = './spec/ingestGranule/IngestGranule.input.template.json';
-const templatedInputFilename = './spec/ingestGranule/IngestGranule.input.json';
-templateInput({
+const templatedInputFilename = templateFile({
   inputTemplateFilename,
-  templatedInputFilename,
   config: awsConfig[taskName]
 });
 
 const outputPayloadTemplateFilename = './spec/ingestGranule/IngestGranule.output.payload.template.json'
-const templatedOutputPayloadFilename = outputPayloadTemplateFilename.replace('.template', '');
-templateInput({
+const templatedOutputPayloadFilename = templateFile({
   inputTemplateFilename: outputPayloadTemplateFilename,
-  templatedInputFilename: templatedOutputPayloadFilename,
   config: awsConfig[taskName]['SyncGranuleOutput']
 });
 const expectedPayload = JSON.parse(fs.readFileSync(templatedOutputPayloadFilename));

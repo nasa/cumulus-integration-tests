@@ -1,16 +1,15 @@
 const workflow = require('@cumulus/integration-tests');
 const aws = require('@cumulus/common/aws');
-const { loadConfig, templateInput } = require('../helpers/testUtils');
+const { loadConfig, templateFile } = require('../helpers/testUtils');
 const awsConfig = loadConfig();
 const taskName = 'DiscoverAndQueuePdrs';
 
 const inputTemplateFilename = './spec/discoverAndQueuePdrs/DiscoverAndQueuePdrs.input.template.json';
-const templatedInputFilename = './spec/discoverAndQueuePdrs/DiscoverAndQueuePdrs.input.json';
-templateInput({
+const templatedInputFilename = templateFile({
   inputTemplateFilename,
-  templatedInputFilename,
   config: awsConfig[taskName]
 });
+
 const pdrFilename = 'MOD09GQ_1granule_v3.PDR';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 120000;
