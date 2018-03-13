@@ -54,7 +54,9 @@ Tests are written and run with [jasmine](https://jasmine.github.io/setup/nodejs.
 
 To run all of the tests, run `jasmine` in the top level of the repository.
 
-When running tests locally, include the `AWS_ACCOUNT_ID` of your deployment, e.g.:
+When running tests locally, include the `AWS_ACCOUNT_ID` of your deployment.
+
+Your AWS Account ID is a 12-digit number that is a part of any ARN (Amazon Resource Name) for your AWS account. It can also be discovered on your AWS [My Account](https://console.aws.amazon.com/billing/home?#/account) page.
 
 ```bash
 AWS_ACCOUNT_ID=000000000000 jasmine
