@@ -1,0 +1,23 @@
+stackName: aimee-deploy-cumulus
+bucket: cumulus-devseed-internal
+DiscoverAndQueuePdrs: &defaults
+  meta:
+    stack: aimee-deploy-cumulus
+    buckets:
+      internal: cumulus-devseed-internal
+      private: cumulus-devseed-private
+    templates:
+      ParsePdr: s3://cumulus-devseed-internal/aimee-deploy-cumulus/workflows/ParsePdr.json
+      IngestGranule: s3://cumulus-devseed-internal/aimee-deploy-cumulus/workflows/IngestGranule.json
+    queues:
+      startSF: https://sqs.us-east-1.amazonaws.com/{{AWS_ACCOUNT_ID}}/aimee-deploy-cumulus-startSF
+ParsePdr: *defaults
+IngestGranule:
+  <<: *defaults
+  SyncGranuleOutput:
+    granules:
+      - files:
+        - bucket: cumulus-devseed-private
+          filename: s3://cumulus-devseed-private/MOD09GQ.A2016358.h13v04.006.2016360104606.hdf
+        - bucket: cumulus-devseed-private
+          filename: s3://cumulus-devseed-private/MOD09GQ.A2016358.h13v04.006.2016360104606.hdf.met
