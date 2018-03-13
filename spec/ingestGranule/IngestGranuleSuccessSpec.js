@@ -33,10 +33,6 @@ describe("The Ingest Granules workflow", function() {
     );
   });
 
-  afterAll(async () => {
-    //await aws.deleteS3Object(awsConfig.bucket, `${awsConfig.stackName}/pdrs/${pdrFilename}`);
-  });
-
   it('executes successfully', function() {
     expect(workflowExecution.status).toEqual('SUCCEEDED');
   });
