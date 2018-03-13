@@ -14,3 +14,5 @@ CumulusApiV1.yml
 aws-config.override.yml
 spec/discoverAndQueuePdrs/DiscoverAndQueuePdrs.input.json
 spec/parsePdr/ParsePdr.input.json
+spec/ingestGranules/IngestGranules.input.json
+spec/ingestGranules/IngestGranules.output.payload.json

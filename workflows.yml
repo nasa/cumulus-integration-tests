@@ -167,6 +167,8 @@ IngestGranule:
           outputs:
             - source: '{$.granules}'
               destination: '{$.meta.input_granules}'
+            - source: '{$}'
+              destination: '{$.payload}'
       Type: Task
       Resource: ${SyncGranuleLambdaFunction.Arn}
       Catch:
