@@ -7,7 +7,7 @@ function loadConfig() {
   let configFileName = './spec/config.yml';
   const overrideConfigFilename = './spec/config.override.yml';
 
-  if (fs.existsSync(overrideConfigFilename) || process.env.USE_DEFAULT_CONFIG) {
+  if (fs.existsSync(overrideConfigFilename) && !process.env.USE_DEFAULT_CONFIG) {
     configFileName = overrideConfigFilename;
   }
   return yaml.safeLoad(fs.readFileSync(configFileName), 'utf8');
