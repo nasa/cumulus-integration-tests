@@ -17,7 +17,7 @@ jasmine.DEFAULT_TIMEOUT_INTERVAL = 120000;
 describe("The Discover And Queue PDRs workflow", function() {
   let workflowExecution = null;
 
-  beforeAll(async function() {
+  beforeAll(async () => {
     workflowExecution = await workflow.executeWorkflow(
       awsConfig.stackName,
       awsConfig.bucket,

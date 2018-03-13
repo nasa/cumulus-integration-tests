@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jasmine",
+    "pretest": "eslint spec/",
     "deploy": "kes cf deploy --kes-folder app --region us-east-1 --template node_modules/@cumulus/deployment/app"
   },
   "author": "Cumulus Authors",

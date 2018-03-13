@@ -3,6 +3,12 @@ const clonedeep = require('lodash.clonedeep');
 const merge = require('lodash.merge');
 const yaml = require('js-yaml');
 
+/**
+ * Loads and parses the configuration defined in `./spec/config.yml` or
+ * `./spec/config.override.yml` if it exists.
+ *
+ * @return {Object} Configuration object
+*/
 function loadConfig() {
   let configFileName = './spec/config.yml';
   const overrideConfigFilename = './spec/config.override.yml';
@@ -13,6 +19,14 @@ function loadConfig() {
   return yaml.safeLoad(fs.readFileSync(configFileName), 'utf8');
 }
 
+/**
+ * Creates a new file using a template file and configuration object which
+ * defines fields to write to in the input template.
+ *
+ * @param  {String} options.inputTemplateFilename File path and name of template file (json)
+ * @param  {Object} options.config                Object to use to write to fields in the template
+ * @return {String}                               File path and name of output file (json)
+ */
 function templateFile({ inputTemplateFilename, config }) {
   const inputTemplate = JSON.parse(fs.readFileSync(inputTemplateFilename));
   const templatedInput = merge(clonedeep(inputTemplate), config);
