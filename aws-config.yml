@@ -12,7 +12,7 @@ DiscoverAndQueuePdrs: &defaults
     queues:
       startSF: https://sqs.us-east-1.amazonaws.com/{{AWS_ACCOUNT_ID}}/test-cumulus-startSF
 ParsePdr: *defaults
-IngestGranule: *defaults
+IngestGranule:
   <<: *defaults
   SyncGranuleOutput:
     granules:
