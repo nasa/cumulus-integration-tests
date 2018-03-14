@@ -32,6 +32,9 @@
     "@cumulus/queue-granules": "^1.1.1",
     "@cumulus/queue-pdrs": "^1.1.0",
     "@cumulus/sync-granule": "^1.1.1",
+    "aws-sdk": "^2.209.0",
+    "jasmine": "^3.1.0",
+    "jasmine-console-reporter": "^2.0.1",
     "js-yaml": "^3.11.0",
     "kes": "^2.1.2",
     "lodash": "^4.17.5",
@@ -41,8 +44,6 @@
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "eslint": "^4.18.2",
-    "eslint-plugin-jsdoc": "^3.5.0",
-    "jasmine": "^3.1.0",
-    "jasmine-console-reporter": "^2.0.1"
+    "eslint-plugin-jsdoc": "^3.5.0"
   }
 }

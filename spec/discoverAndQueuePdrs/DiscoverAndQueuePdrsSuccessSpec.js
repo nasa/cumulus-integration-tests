@@ -1,13 +1,15 @@
+const { S3 } = require('aws-sdk');
 const workflow = require('@cumulus/integration-tests');
-const aws = require('@cumulus/common/aws');
-const { loadConfig, templateFile } = require('../helpers/testUtils');
-const awsConfig = loadConfig();
-const taskName = 'DiscoverAndQueuePdrs';
 
+const { loadConfig, templateFile } = require('../helpers/testUtils');
+
+const s3 = new S3();
+const config = loadConfig();
+const taskName = 'DiscoverAndQueuePdrs';
 const inputTemplateFilename = './spec/discoverAndQueuePdrs/DiscoverAndQueuePdrs.input.template.json';
 const templatedInputFilename = templateFile({
   inputTemplateFilename,
-  config: awsConfig[taskName]
+  config: config[taskName]
 });
 
 const pdrFilename = 'MOD09GQ_1granule_v3.PDR';
@@ -19,15 +21,18 @@ describe("The Discover And Queue PDRs workflow", function() {
 
   beforeAll(async function() {
     workflowExecution = await workflow.executeWorkflow(
-      awsConfig.stackName,
-      awsConfig.bucket,
+      config.stackName,
+      config.bucket,
       taskName,
       templatedInputFilename
     );
   });
 
   afterAll(async () => {
-    await aws.deleteS3Object(awsConfig.bucket, `${awsConfig.stackName}/pdrs/${pdrFilename}`);
+    await s3.deleteObject({
+      Bucket: config.bucket,
+      Key: `${config.stackName}/pdrs/${pdrFilename}`
+    }).promise();
   });
 
   it('executes successfully', function() {
@@ -42,8 +47,8 @@ describe("The Discover And Queue PDRs workflow", function() {
     });
 
     it("has expected path and name output", function() {
-      expect(lambdaPayload.payload.pdrs[0].path).toEqual('cumulus-test-data/pdrs');
-      expect(lambdaPayload.payload.pdrs[0].name).toEqual(pdrFilename);
+      expect(lambdaOutput.payload.pdrs[0].path).toEqual('cumulus-test-data/pdrs');
+      expect(lambdaOutput.payload.pdrs[0].name).toEqual(pdrFilename);
     });
   });
 

@@ -1,21 +1,20 @@
 const fs = require('fs');
 const workflow = require('@cumulus/integration-tests');
-const aws = require('@cumulus/common/aws');
 
 const { loadConfig, templateFile } = require('../helpers/testUtils');
-const awsConfig = loadConfig();
+const config = loadConfig();
 const taskName = 'IngestGranule';
 
 const inputTemplateFilename = './spec/ingestGranule/IngestGranule.input.template.json';
 const templatedInputFilename = templateFile({
   inputTemplateFilename,
-  config: awsConfig[taskName]
+  config: config[taskName]
 });
 
 const outputPayloadTemplateFilename = './spec/ingestGranule/IngestGranule.output.payload.template.json'
 const templatedOutputPayloadFilename = templateFile({
   inputTemplateFilename: outputPayloadTemplateFilename,
-  config: awsConfig[taskName]['SyncGranuleOutput']
+  config: config[taskName]['SyncGranuleOutput']
 });
 const expectedPayload = JSON.parse(fs.readFileSync(templatedOutputPayloadFilename));
 
@@ -26,8 +25,8 @@ describe("The Ingest Granules workflow", function() {
 
   beforeAll(async function() {
     workflowExecution = await workflow.executeWorkflow(
-      awsConfig.stackName,
-      awsConfig.bucket,
+      config.stackName,
+      config.bucket,
       taskName,
       templatedInputFilename
     );

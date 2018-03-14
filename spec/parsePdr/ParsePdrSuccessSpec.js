@@ -1,14 +1,16 @@
 const fs = require('fs');
+const { S3 } = require('aws-sdk');
 const workflow = require('@cumulus/integration-tests');
-const aws = require('@cumulus/common/aws');
-const { loadConfig, templateFile } = require('../helpers/testUtils');
-const awsConfig = loadConfig();
-const taskName = 'ParsePdr';
 
+const { loadConfig, templateFile } = require('../helpers/testUtils');
+
+const s3 = new S3();
+const config = loadConfig();
+const taskName = 'ParsePdr';
 const inputTemplateFilename = './spec/parsePdr/ParsePdr.input.template.json';
 const templatedInputFilename = templateFile({
   inputTemplateFilename,
-  config: awsConfig[taskName]
+  config: config[taskName]
 });
 const expectedParsePdrOutput = JSON.parse(fs.readFileSync('./spec/parsePdr/ParsePdr.output.json'));
 const pdrFilename = 'MOD09GQ_1granule_v3.PDR';
@@ -20,15 +22,18 @@ describe("The Parse PDR workflow", function() {
 
   beforeAll(async function() {
     workflowExecution = await workflow.executeWorkflow(
-      awsConfig.stackName,
-      awsConfig.bucket,
+      config.stackName,
+      config.bucket,
       taskName,
       templatedInputFilename
     );
   });
 
   afterAll(async () => {
-    await aws.deleteS3Object(awsConfig.bucket, `${awsConfig.stackName}/pdrs/${pdrFilename}`);
+    await s3.deleteObject({
+      Bucket: config.bucket,
+      Object: `${config.stackName}/pdrs/${pdrFilename}`
+    }).promise();
   });
 
   it('executes successfully', function() {
