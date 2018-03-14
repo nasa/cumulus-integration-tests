@@ -3,8 +3,14 @@ HelloWorldWorkflow:
   StartAt: StartStatus
   States:
     StartStatus:
+      CumulusConfig:
+        cumulus_message:
+          input: '{$}'
+          outputs:
+            - source: '{$.payload}'
+              destination: '{$.payload}'
       Type: Task
-      Resource: ${sf2snsStartLambdaFunction.Arn}
+      Resource: ${SnsReportLambdaFunction.Arn}
       Next: HelloWorld
     HelloWorld:
       CumulusConfig:
@@ -15,8 +21,19 @@ HelloWorldWorkflow:
       Resource: ${HelloWorldLambdaFunction.Arn}
       Next: StopStatus
     StopStatus:
+      CumulusConfig:
+        sfnEnd: true
+        stack: '{$.meta.stack}'
+        bucket: '{$.meta.buckets.internal}'
+        stateMachine: '{$.cumulus_meta.state_machine}'
+        executionTime: '{$.cumulus_meta.execution_name}'
+        cumulus_message:
+          input: '{$}'
+          outputs:
+            - source: '{$.payload}'
+              destination: '{$.payload}'
       Type: Task
-      Resource: ${sf2snsEndLambdaFunction.Arn}
+      Resource: ${SnsReportLambdaFunction.Arn}
       Catch:
         - ErrorEquals:
           - States.ALL
@@ -31,8 +48,14 @@ DiscoverAndQueuePdrs:
   StartAt: StartStatus
   States:
     StartStatus:
+      CumulusConfig:
+        cumulus_message:
+          input: '{$}'
+          outputs:
+            - source: '{$.payload}'
+              destination: '{$.payload}'
       Type: Task
-      Resource: ${sf2snsStartLambdaFunction.Arn}
+      Resource: ${SnsReportLambdaFunction.Arn}
       Next: DiscoverPdrs
     DiscoverPdrs:
       CumulusConfig:
@@ -66,8 +89,19 @@ DiscoverAndQueuePdrs:
           Next: StopStatus
       Next: StopStatus
     StopStatus:
+      CumulusConfig:
+        sfnEnd: true
+        stack: '{$.meta.stack}'
+        bucket: '{$.meta.buckets.internal}'
+        stateMachine: '{$.cumulus_meta.state_machine}'
+        executionTime: '{$.cumulus_meta.execution_name}'
+        cumulus_message:
+          input: '{$}'
+          outputs:
+            - source: '{$.payload}'
+              destination: '{$.payload}'
       Type: Task
-      Resource: ${sf2snsEndLambdaFunction.Arn}
+      Resource: ${SnsReportLambdaFunction.Arn}
       Catch:
         - ErrorEquals:
           - States.ALL
@@ -82,8 +116,14 @@ ParsePdr:
   StartAt: StatusReport
   States:
     StatusReport:
+      CumulusConfig:
+        cumulus_message:
+          input: '{$}'
+          outputs:
+            - source: '{$.payload}'
+              destination: '{$.payload}'
       Type: Task
-      Resource: ${sf2snsStartLambdaFunction.Arn}
+      Resource: ${SnsReportLambdaFunction.Arn}
       Next: ParsePdr
     ParsePdr:
       CumulusConfig:
@@ -139,8 +179,19 @@ ParsePdr:
       Seconds: 120
       Next: CheckStatus
     StopStatus:
+      CumulusConfig:
+        sfnEnd: true
+        stack: '{$.meta.stack}'
+        bucket: '{$.meta.buckets.internal}'
+        stateMachine: '{$.cumulus_meta.state_machine}'
+        executionTime: '{$.cumulus_meta.execution_name}'
+        cumulus_message:
+          input: '{$}'
+          outputs:
+            - source: '{$.payload}'
+              destination: '{$.payload}'
       Type: Task
-      Resource: ${sf2snsEndLambdaFunction.Arn}
+      Resource: ${SnsReportLambdaFunction.Arn}
       Catch:
         - ErrorEquals:
           - States.ALL
@@ -155,8 +206,14 @@ IngestGranule:
   StartAt: Report
   States:
     Report:
+      CumulusConfig:
+        cumulus_message:
+          input: '{$}'
+          outputs:
+            - source: '{$.payload}'
+              destination: '{$.payload}'
       Type: Task
-      Resource: ${sf2snsStartLambdaFunction.Arn}
+      Resource: ${SnsReportLambdaFunction.Arn}
       Next: SyncGranule
     SyncGranule:
       CumulusConfig:
@@ -178,8 +235,19 @@ IngestGranule:
           Next: StopStatus
       Next: StopStatus
     StopStatus:
+      CumulusConfig:
+        sfnEnd: true
+        stack: '{$.meta.stack}'
+        bucket: '{$.meta.buckets.internal}'
+        stateMachine: '{$.cumulus_meta.state_machine}'
+        executionTime: '{$.cumulus_meta.execution_name}'
+        cumulus_message:
+          input: '{$}'
+          outputs:
+            - source: '{$.payload}'
+              destination: '{$.payload}'
       Type: Task
-      Resource: ${sf2snsEndLambdaFunction.Arn}
+      Resource: ${SnsReportLambdaFunction.Arn}
       Catch:
         - ErrorEquals:
           - States.ALL
