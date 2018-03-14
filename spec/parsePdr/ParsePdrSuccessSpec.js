@@ -32,7 +32,7 @@ describe("The Parse PDR workflow", function() {
   afterAll(async () => {
     await s3.deleteObject({
       Bucket: config.bucket,
-      Object: `${config.stackName}/pdrs/${pdrFilename}`
+      Key: `${config.stackName}/pdrs/${pdrFilename}`
     }).promise();
   });
 
