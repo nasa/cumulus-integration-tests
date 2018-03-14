@@ -48,7 +48,7 @@ describe("The Ingest Granules workflow", function() {
     });
 
     it("has expected updated meta", () => {
-      pending('Updated @cumulus/integration-tests package which returns lambda output.');
+      expect(lambdaOutput.meta.input_granules).toEqual(expectedPayload.granules);
     });
   });
 });
