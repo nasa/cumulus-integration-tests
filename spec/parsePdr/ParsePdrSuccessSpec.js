@@ -1,3 +1,4 @@
+const fs = require('fs');
 const { S3 } = require('aws-sdk');
 const workflow = require('@cumulus/integration-tests');
 
@@ -5,18 +6,18 @@ const { loadConfig, templateFile } = require('../helpers/testUtils');
 
 const s3 = new S3();
 const config = loadConfig();
-const taskName = 'DiscoverAndQueuePdrs';
-const inputTemplateFilename = './spec/discoverAndQueuePdrs/DiscoverAndQueuePdrs.input.template.json';
+const taskName = 'ParsePdr';
+const inputTemplateFilename = './spec/parsePdr/ParsePdr.input.template.json';
 const templatedInputFilename = templateFile({
   inputTemplateFilename,
   config: config[taskName]
 });
-
+const expectedParsePdrOutput = JSON.parse(fs.readFileSync('./spec/parsePdr/ParsePdr.output.json'));
 const pdrFilename = 'MOD09GQ_1granule_v3.PDR';
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 120000;
 
-describe("The Discover And Queue PDRs workflow", function() {
+describe("The Parse PDR workflow", function() {
   let workflowExecution = null;
 
   beforeAll(async function() {
@@ -39,28 +40,27 @@ describe("The Discover And Queue PDRs workflow", function() {
     expect(workflowExecution.status).toEqual('SUCCEEDED');
   });
 
-  describe("the DiscoverPdrs Lambda", function() {
+  describe("the ParsePdr Lambda", function() {
     let lambdaOutput = null;
 
     beforeAll(async function() {
-      lambdaOutput = await workflow.getLambdaOutput(workflowExecution.executionArn, "DiscoverPdrs");
+      lambdaOutput = await workflow.getLambdaOutput(workflowExecution.executionArn, "ParsePdr");
     });
 
     it("has expected path and name output", function() {
-      expect(lambdaOutput.payload.pdrs[0].path).toEqual('cumulus-test-data/pdrs');
-      expect(lambdaOutput.payload.pdrs[0].name).toEqual(pdrFilename);
+      expect(lambdaOutput.payload).toEqual(expectedParsePdrOutput);
     });
   });
 
-  describe("the QueuePdrs Lambda", function() {
+  describe('the QueueGranules Lambda', () => {
     let lambdaOutput = null;
 
     beforeAll(async function() {
-      lambdaOutput = await workflow.getLambdaOutput(workflowExecution.executionArn, "QueuePdrs");
+      lambdaOutput = await workflow.getLambdaOutput(workflowExecution.executionArn, "QueueGranules");
     });
 
-    it("output is pdrs_queued", function() {
-      expect(lambdaOutput.payload).toEqual({ pdrs_queued: 1 });
+    it("has expected path and name output", function() {
+      expect(lambdaOutput.payload).toEqual({ granules_queued: 1 });
     });
   });
 });

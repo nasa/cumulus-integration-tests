@@ -15,6 +15,7 @@ default:
 
   buckets:
     internal: cumulus-test-sandbox-internal
+    private: cumulus-test-sandbox-private
 
   iams:
     ecsRoleArn: 'arn:aws:iam::{{AWS_ACCOUNT_ID}}:role/test-cumulus-ecs'
