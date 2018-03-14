@@ -30,27 +30,27 @@ describe("The Discover And Queue PDRs workflow", function() {
   });
 
   describe("the DiscoverPdrs Lambda", function() {
-    let lambdaPayload = null;
+    let lambdaOutput = null;
 
     beforeAll(async function() {
-      lambdaPayload = await workflow.getLambdaOutput(workflowExecution.executionArn, "DiscoverPdrs");
+      lambdaOutput = await workflow.getLambdaOutput(workflowExecution.executionArn, "DiscoverPdrs");
     });
 
     it("has expected path and name output", function() {
-      expect(lambdaPayload.pdrs[0].path).toEqual('cumulus-test-data/pdrs');
-      expect(lambdaPayload.pdrs[0].name).toEqual('MOD09GQ_1granule_v3.PDR');
+      expect(lambdaOutput.payload.pdrs[0].path).toEqual('cumulus-test-data/pdrs');
+      expect(lambdaOutput.payload.pdrs[0].name).toEqual('MOD09GQ_1granule_v3.PDR');
     });
   });
 
   describe("the QueuePdrs Lambda", function() {
-    let lambdaPayload = null;
+    let lambdaOutput = null;
 
     beforeAll(async function() {
-      lambdaPayload = await workflow.getLambdaOutput(workflowExecution.executionArn, "QueuePdrs");
+      lambdaOutput = await workflow.getLambdaOutput(workflowExecution.executionArn, "QueuePdrs");
     });
 
     it("output is pdrs_queued", function() {
-      expect(lambdaPayload).toEqual({ pdrs_queued: 1 });
+      expect(lambdaOutput.payload).toEqual({ pdrs_queued: 1 });
     });
   });  
 });

@@ -21,14 +21,14 @@ describe("The Hello World workflow", function() {
   });
 
   describe("the HelloWorld Lambda", function() {
-    let lambdaPayload = null;
+    let lambdaOutput = null;
 
     beforeAll(async function() {
-      lambdaPayload = await workflow.getLambdaOutput(workflowExecution.executionArn, "HelloWorld");
+      lambdaOutput = await workflow.getLambdaOutput(workflowExecution.executionArn, "HelloWorld");
     });
 
     it("output is Hello World", function() {
-      expect(lambdaPayload).toEqual({ hello: 'Hello World' });
+      expect(lambdaOutput.payload).toEqual({ hello: 'Hello World' });
     });
   });
 });
