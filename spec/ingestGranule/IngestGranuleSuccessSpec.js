@@ -38,14 +38,14 @@ describe("The Ingest Granules workflow", function() {
   });
 
   describe("the SyncGranules Lambda", function() {
-    let lambdaPayload = null;
+    let lambdaOutput = null;
 
     beforeAll(async function() {
-      lambdaPayload = await workflow.getLambdaOutput(workflowExecution.executionArn, "SyncGranule");
+      lambdaOutput = await workflow.getLambdaOutput(workflowExecution.executionArn, "SyncGranule");
     });
 
     it("has expected payload", function() {
-      expect(lambdaPayload).toEqual(expectedPayload);
+      expect(lambdaOutput.payload).toEqual(expectedPayload);
     });
 
     it("has expected updated meta", () => {
