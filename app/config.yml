@@ -1,7 +1,7 @@
 
 default:
-  stackName: test-cumulus-intg
-  stackNameNoDash: TestCumulusIntg
+  stackName: test-cumulus-integration
+  stackNameNoDash: TestCumulusIntegration
 
   apiStage: dev
 
