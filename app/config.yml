@@ -11,7 +11,34 @@ default:
       - '{{AWS_SUBNET}}'
 
   ecs:
-    instanceType: t2.micro
+    instanceType: t2.small
+    desiredInstances: 1
+    availabilityZone: us-east-1a
+    imageId: ami-a7a242da
+    publicIp: true
+    docker:
+      username: cumulususer
+    services:
+      EcsTaskHelloWorld:
+        image: cumuluss/cumulus-ecs-task:1.0.0
+        cpu: 800
+        memory: 1500
+        count: 0
+        envs:
+          AWS_DEFAULT_REGION:
+            function: Fn::Sub
+            value: '${AWS::Region}'
+        commands:
+          - cumulus-ecs-task
+          - '--activityArn'
+          - function: Ref
+            value: EcsTaskHelloWorldActivity
+          - '--lambdaArn'
+          - function: Ref
+            value: HelloWorldLambdaFunction
+
+  activities:
+    - name: EcsTaskHelloWorld
 
   buckets:
     internal: cumulus-test-sandbox-internal
