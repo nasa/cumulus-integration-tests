@@ -354,6 +354,7 @@ Resources:
                   - states:SendTaskSuccess
                   - states:SendTaskHeartbeat
                   - states:GetActivityTask
+                  - states:GetExecutionHistory
                 Resource: "*"
 
               # Allow state machine interactions
@@ -363,6 +364,7 @@ Resources:
                 - states:SendTaskSuccess
                 - states:GetActivityTask
                 - states:DescribeActivity
+                - states:GetExecutionHistory
                 Resource: arn:aws:states:*:*:*
 
               # Allow writing to ingest buckets

@@ -1,5 +1,5 @@
 default:
-  prefix: test-cumulus-integration
+  prefix: test-cumulus
   stackName: test-cumulus-integration-iam
   authorizor: false
   capabilities:
