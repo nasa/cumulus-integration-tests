@@ -2,6 +2,13 @@
 default:
   stackName: test-cumulus-integration
   stackNameNoDash: TestCumulusIntegration
+  params:
+    - name: CmrPassword
+      value: '{{CMR_PASSWORD}}'
+    - name: DockerEmail
+      value: '{{DOCKER_EMAIL}}'
+    - name: DockerPassword
+      value: '{{DOCKER_PASS}}'
 
   apiStage: dev
 
@@ -23,7 +30,7 @@ default:
         image: cumuluss/cumulus-ecs-task:1.0.0
         cpu: 800
         memory: 1500
-        count: 0
+        count: 1
         envs:
           AWS_DEFAULT_REGION:
             function: Fn::Sub
@@ -49,6 +56,7 @@ default:
     lambdaApiGatewayRoleArn: 'arn:aws:iam::{{AWS_ACCOUNT_ID}}:role/test-cumulus-lambda-api-gateway'
     lambdaProcessingRoleArn: 'arn:aws:iam::{{AWS_ACCOUNT_ID}}:role/test-cumulus-lambda-processing'
     stepRoleArn: 'arn:aws:iam::{{AWS_ACCOUNT_ID}}:role/test-cumulus-steprole'
+    instanceProfile: 'arn:aws:iam::{{AWS_ACCOUNT_ID}}:instance-profile/test-cumulus-ecs'
 
   urs_url: https://uat.urs.earthdata.nasa.gov/ #make sure to include the trailing slash
 
