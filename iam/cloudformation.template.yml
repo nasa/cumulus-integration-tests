@@ -350,11 +350,6 @@ Resources:
                   - logs:CreateLogStream
                   - logs:DescribeLogStreams
                   - logs:PutLogEvents
-                  - states:SendTaskFailure
-                  - states:SendTaskSuccess
-                  - states:SendTaskHeartbeat
-                  - states:GetActivityTask
-                  - states:GetExecutionHistory
                 Resource: "*"
 
               # Allow state machine interactions
