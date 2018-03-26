@@ -3,8 +3,6 @@ default:
   stackName: test-cumulus-integration
   stackNameNoDash: TestCumulusIntegration
   params:
-    - name: CmrPassword
-      value: '{{CMR_PASSWORD}}'
     - name: DockerEmail
       value: '{{DOCKER_EMAIL}}'
     - name: DockerPassword
