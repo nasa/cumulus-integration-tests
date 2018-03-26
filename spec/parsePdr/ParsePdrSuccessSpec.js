@@ -1,11 +1,13 @@
 const fs = require('fs');
 const { S3 } = require('aws-sdk');
-const workflow = require('@cumulus/integration-tests');
+const { executeWorkflow, LambdaStep } = require('@cumulus/integration-tests');
 
 const { loadConfig, templateFile } = require('../helpers/testUtils');
 
 const s3 = new S3();
 const config = loadConfig();
+const lambdaStep = new LambdaStep();
+
 const taskName = 'ParsePdr';
 const inputTemplateFilename = './spec/parsePdr/ParsePdr.input.template.json';
 const templatedInputFilename = templateFile({
@@ -21,7 +23,7 @@ describe("The Parse PDR workflow", function() {
   let workflowExecution = null;
 
   beforeAll(async function() {
-    workflowExecution = await workflow.executeWorkflow(
+    workflowExecution = await executeWorkflow(
       config.stackName,
       config.bucket,
       taskName,
@@ -44,7 +46,7 @@ describe("The Parse PDR workflow", function() {
     let lambdaOutput = null;
 
     beforeAll(async function() {
-      lambdaOutput = await workflow.getLambdaOutput(workflowExecution.executionArn, "ParsePdr");
+      lambdaOutput = await lambdaStep.getStepOutput(workflowExecution.executionArn, "ParsePdr");
     });
 
     it("has expected path and name output", function() {
@@ -56,7 +58,7 @@ describe("The Parse PDR workflow", function() {
     let lambdaOutput = null;
 
     beforeAll(async function() {
-      lambdaOutput = await workflow.getLambdaOutput(workflowExecution.executionArn, "QueueGranules");
+      lambdaOutput = await lambdaStep.getStepOutput(workflowExecution.executionArn, "QueueGranules");
     });
 
     it("has expected path and name output", function() {
