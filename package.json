@@ -38,7 +38,8 @@
     "js-yaml": "^3.11.0",
     "kes": "^2.1.2",
     "lodash": "^4.17.5",
-    "node-forge": "^0.7.3"
+    "node-forge": "^0.7.3",
+    "webpack": "^1.12.13"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
