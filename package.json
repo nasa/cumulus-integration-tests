@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "babel-node spec/run.js",
-    "deploy": "kes cf deploy --kes-folder app --region us-east-1 --template node_modules/@cumulus/deployment/app"
+    "deploy": "kes cf deploy --kes-folder app --region us-east-1 --template node_modules/@cumulus/deployment/app",
+    "postinstall": "mkdir node_modules/@cumulus/integration-tests; cd node_modules/@cumulus/integration-tests; git init; git remote add -f origin https://github.com/cumulus-nasa/cumulus.git; git config core.sparseCheckout true; echo packages/integration-tests >> .git/info/sparse-checkout; git pull --depth=1 origin abarciauskas-bgse_integration-tests-activities; sudo rm -r .git; cd ..; npm i ./integration-tests/packages/integration-tests/"
   },
   "author": "Cumulus Authors",
   "license": "Apache-2.0",
@@ -26,7 +27,6 @@
     "@cumulus/deployment": "^1.2.0",
     "@cumulus/discover-pdrs": "^1.2.0",
     "@cumulus/hello-world": "^1.2.0",
-    "@cumulus/integration-tests": "^1.2.0",
     "@cumulus/parse-pdr": "^1.2.0",
     "@cumulus/pdr-status-check": "^1.2.0",
     "@cumulus/queue-granules": "^1.2.0",
