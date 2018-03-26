@@ -7,7 +7,7 @@
     "test": "babel-node spec/run.js",
     "deploy": "kes cf deploy --kes-folder app --region us-east-1 --template node_modules/@cumulus/deployment/app",
     "preinstall": "npm install webpack --global",
-    "postinstall": "mkdir node_modules/@cumulus/integration-tests; cd node_modules/@cumulus/integration-tests; git init; git remote add -f origin https://github.com/cumulus-nasa/cumulus.git; git config core.sparseCheckout true; echo packages/integration-tests >> .git/info/sparse-checkout; git pull --depth=1 origin abarciauskas-bgse_integration-tests-activities; sudo rm -r .git; cd ..; npm i ./integration-tests/packages/integration-tests/"
+    "postinstall": "sudo mkdir node_modules/@cumulus/integration-tests; cd node_modules/@cumulus/integration-tests; git init; git remote add -f origin https://github.com/cumulus-nasa/cumulus.git; git config core.sparseCheckout true; echo packages/integration-tests >> .git/info/sparse-checkout; git pull --depth=1 origin abarciauskas-bgse_integration-tests-activities; sudo rm -r .git; cd ..; npm i ./integration-tests/packages/integration-tests/"
   },
   "author": "Cumulus Authors",
   "license": "Apache-2.0",
