@@ -114,30 +114,7 @@ ParsePdr:
           - States.ALL
           ResultPath: '$.exception'
           Next: StopStatus
-      Next: CheckStatus
-    CheckStatus:
-      Type: Task
-      Resource: ${PdrStatusCheckLambdaFunction.Arn}
-      Catch:
-        - ErrorEquals:
-          - States.ALL
-          ResultPath: '$.exception'
-          Next: StopStatus
-      Next: CheckAgainChoice
-    CheckAgainChoice:
-      Type: Choice
-      Choices:
-        - Variable: $.payload.isFinished
-          BooleanEquals: false
-          Next: WaitForSomeTime
-        - Variable: $.payload.isFinished
-          BooleanEquals: true
-          Next: StopStatus
-      Default: StopStatus
-    WaitForSomeTime:
-      Type: Wait
-      Seconds: 120
-      Next: CheckStatus
+      Next: StopStatus
     StopStatus:
       Type: Task
       Resource: ${sf2snsEndLambdaFunction.Arn}
