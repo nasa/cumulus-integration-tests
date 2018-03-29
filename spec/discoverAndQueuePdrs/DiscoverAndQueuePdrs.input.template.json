@@ -12,7 +12,8 @@
     },
     "collection": {
       "provider_path": "cumulus-test-data/pdrs",
-      "name": "test-collection"
+      "name": "test-collection",
+      "granuleIdExtraction": "(.*)"
     },
     "provider": {
       "id": "s3_provider",

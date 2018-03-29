@@ -13,6 +13,7 @@
     "collection": {
       "provider_path": "cumulus-test-data/pdrs",
       "name": "test-collection",
+      "granuleIdExtraction": "(.*)",
       "files": []
     },
     "provider": {
