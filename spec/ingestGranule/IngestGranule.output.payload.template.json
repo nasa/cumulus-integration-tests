@@ -1,4 +1,5 @@
 {
+  "process": "modis",
   "granules": [
     {
       "files": [
