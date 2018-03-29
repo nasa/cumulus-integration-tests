@@ -13,7 +13,8 @@
     },
     "collection": {
       "files": [],
-      "provider_path": "cumulus-test-data/pdrs"
+      "provider_path": "cumulus-test-data/pdrs",
+      "name": "test-collection"
     },
     "provider": {
       "host": "cumulus-data-shared",

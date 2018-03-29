@@ -11,7 +11,8 @@
       "internal": ""
     },
     "collection": {
-      "provider_path": "cumulus-test-data/pdrs"
+      "provider_path": "cumulus-test-data/pdrs",
+      "name": "test-collection"
     },
     "provider": {
       "id": "s3_provider",
