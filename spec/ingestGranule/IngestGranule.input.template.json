@@ -15,7 +15,8 @@
       "files": [],
       "provider_path": "cumulus-test-data/pdrs",
       "name": "test-collection",
-      "granuleIdExtraction": "(.*)"
+      "granuleIdExtraction": "(.*)",
+      "granuleId": "(.*).hdf"
     },
     "provider": {
       "host": "cumulus-data-shared",
