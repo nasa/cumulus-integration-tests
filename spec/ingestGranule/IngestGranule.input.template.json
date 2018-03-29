@@ -16,7 +16,8 @@
       "provider_path": "cumulus-test-data/pdrs",
       "name": "test-collection",
       "granuleIdExtraction": "(.*)",
-      "granuleId": "(.*).hdf"
+      "granuleId": "(.*).hdf",
+      "process": "modis"
     },
     "provider": {
       "host": "cumulus-data-shared",
