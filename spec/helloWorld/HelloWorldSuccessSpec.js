@@ -5,7 +5,7 @@ const awsConfig = loadConfig();
 const lambdaStep = new LambdaStep();
 const activityStep = new ActivityStep();
 
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 240000;
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 120000;
 
 describe('The Hello World workflow', function() {
   let workflowExecution = null;
@@ -53,14 +53,14 @@ describe('The Hello World workflow using ECS', function() {
   });
 
   describe('the HelloWorld ECS', function() {
-    let lambdaOutput = null;
+    let activityOutput = null;
 
     beforeAll(async function() {
-      lambdaOutput = await activityStep.getStepOutput(workflowExecution.executionArn, 'EcsTaskHelloWorld');
+      activityOutput = await activityStep.getStepOutput(workflowExecution.executionArn, 'EcsTaskHelloWorld');
     });
 
     it('output is Hello World', function() {
-      expect(lambdaOutput.payload).toEqual({ hello: 'Hello World' });
+      expect(activityOutput.payload).toEqual({ hello: 'Hello World' });
     });
   });
 });
