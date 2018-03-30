@@ -1,8 +1,9 @@
 const fs = require('fs');
-const workflow = require('@cumulus/integration-tests');
+const { executeWorkflow, LambdaStep } = require('@cumulus/integration-tests');
 
 const { loadConfig, templateFile } = require('../helpers/testUtils');
 const config = loadConfig();
+const lambdaStep = new LambdaStep();
 const taskName = 'IngestGranule';
 
 const inputTemplateFilename = './spec/ingestGranule/IngestGranule.input.template.json';
@@ -24,7 +25,7 @@ describe("The Ingest Granules workflow", function() {
   let workflowExecution = null;
 
   beforeAll(async function() {
-    workflowExecution = await workflow.executeWorkflow(
+    workflowExecution = await executeWorkflow(
       config.stackName,
       config.bucket,
       taskName,
@@ -40,7 +41,7 @@ describe("The Ingest Granules workflow", function() {
     let lambdaOutput = null;
 
     beforeAll(async function() {
-      lambdaOutput = await workflow.getLambdaOutput(workflowExecution.executionArn, "SyncGranule");
+      lambdaOutput = await lambdaStep.getStepOutput(workflowExecution.executionArn, "SyncGranule");
     });
 
     it("has expected payload", function() {

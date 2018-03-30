@@ -1,10 +1,12 @@
 const { S3 } = require('aws-sdk');
-const workflow = require('@cumulus/integration-tests');
+const { executeWorkflow, LambdaStep } = require('@cumulus/integration-tests');
 
 const { loadConfig, templateFile } = require('../helpers/testUtils');
 
 const s3 = new S3();
 const config = loadConfig();
+const lambdaStep = new LambdaStep();
+
 const taskName = 'DiscoverAndQueuePdrs';
 const inputTemplateFilename = './spec/discoverAndQueuePdrs/DiscoverAndQueuePdrs.input.template.json';
 const templatedInputFilename = templateFile({
@@ -20,7 +22,7 @@ describe("The Discover And Queue PDRs workflow", function() {
   let workflowExecution = null;
 
   beforeAll(async function() {
-    workflowExecution = await workflow.executeWorkflow(
+    workflowExecution = await executeWorkflow(
       config.stackName,
       config.bucket,
       taskName,
@@ -43,7 +45,7 @@ describe("The Discover And Queue PDRs workflow", function() {
     let lambdaOutput = null;
 
     beforeAll(async function() {
-      lambdaOutput = await workflow.getLambdaOutput(workflowExecution.executionArn, "DiscoverPdrs");
+      lambdaOutput = await lambdaStep.getStepOutput(workflowExecution.executionArn, "DiscoverPdrs");
     });
 
     it("has expected path and name output", function() {
@@ -56,7 +58,7 @@ describe("The Discover And Queue PDRs workflow", function() {
     let lambdaOutput = null;
 
     beforeAll(async function() {
-      lambdaOutput = await workflow.getLambdaOutput(workflowExecution.executionArn, "QueuePdrs");
+      lambdaOutput = await lambdaStep.getStepOutput(workflowExecution.executionArn, "QueuePdrs");
     });
 
     it("output is pdrs_queued", function() {

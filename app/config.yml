@@ -2,6 +2,13 @@
 default:
   stackName: test-cumulus-integration
   stackNameNoDash: TestCumulusIntegration
+  params:
+    - name: CmrPassword
+      value: '{{CMR_PASSWORD}}'
+    - name: DockerEmail
+      value: '{{DOCKER_EMAIL}}'
+    - name: DockerPassword
+      value: '{{DOCKER_PASS}}'
 
   apiStage: dev
 
@@ -11,17 +18,45 @@ default:
       - '{{AWS_SUBNET}}'
 
   ecs:
-    instanceType: t2.micro
+    instanceType: t2.small
+    desiredInstances: 1
+    availabilityZone: us-east-1a
+    imageId: ami-a7a242da
+    publicIp: true
+    docker:
+      username: cumulususer
+    services:
+      EcsTaskHelloWorld:
+        image: cumuluss/cumulus-ecs-task:1.0.2
+        cpu: 800
+        memory: 1500
+        count: 1
+        envs:
+          AWS_DEFAULT_REGION:
+            function: Fn::Sub
+            value: '${AWS::Region}'
+        commands:
+          - cumulus-ecs-task
+          - '--activityArn'
+          - function: Ref
+            value: EcsTaskHelloWorldActivity
+          - '--lambdaArn'
+          - function: Ref
+            value: HelloWorldLambdaFunction
+
+  activities:
+    - name: EcsTaskHelloWorld
 
   buckets:
     internal: cumulus-test-sandbox-internal
     private: cumulus-test-sandbox-private
 
   iams:
-    ecsRoleArn: 'arn:aws:iam::{{AWS_ACCOUNT_ID}}:role/test-cumulus-ecs'
-    lambdaApiGatewayRoleArn: 'arn:aws:iam::{{AWS_ACCOUNT_ID}}:role/test-cumulus-lambda-api-gateway'
-    lambdaProcessingRoleArn: 'arn:aws:iam::{{AWS_ACCOUNT_ID}}:role/test-cumulus-lambda-processing'
-    stepRoleArn: 'arn:aws:iam::{{AWS_ACCOUNT_ID}}:role/test-cumulus-steprole'
+    ecsRoleArn: 'arn:aws:iam::{{AWS_ACCOUNT_ID}}:role/test-cumulus-integration-ecs'
+    lambdaApiGatewayRoleArn: 'arn:aws:iam::{{AWS_ACCOUNT_ID}}:role/test-cumulus-integration-lambda-api-gateway'
+    lambdaProcessingRoleArn: 'arn:aws:iam::{{AWS_ACCOUNT_ID}}:role/test-cumulus-integration-lambda-processing'
+    stepRoleArn: 'arn:aws:iam::{{AWS_ACCOUNT_ID}}:role/test-cumulus-integration-steprole'
+    instanceProfile: 'arn:aws:iam::{{AWS_ACCOUNT_ID}}:instance-profile/test-cumulus-integration-ecs'
 
   urs_url: https://uat.urs.earthdata.nasa.gov/ #make sure to include the trailing slash
 

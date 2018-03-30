@@ -13,7 +13,11 @@
     },
     "collection": {
       "files": [],
-      "provider_path": "cumulus-test-data/pdrs"
+      "provider_path": "cumulus-test-data/pdrs",
+      "name": "test-collection",
+      "granuleIdExtraction": "(.*)",
+      "granuleId": "(.*).hdf",
+      "process": "modis"
     },
     "provider": {
       "host": "cumulus-data-shared",
@@ -49,6 +53,7 @@
   "payload": {
     "granules": [
       {
+        "granuleId": "MOD09GQ.A2016358.h13v04.006.2016360104606.hdf",
         "files": [
           {
             "path": "cumulus-test-data/pdrs",
