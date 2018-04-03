@@ -1,0 +1,15 @@
+{
+  "cumulus_meta": {
+    "message_source": "sfn",
+    "state_machine": "",
+    "execution_name": ""
+  },
+  "meta": {
+    "workflow_name": "IngestGranule",
+    "stack": "",
+    "buckets": {
+      "internal": "",
+      "private": ""
+    },
+    
+}
