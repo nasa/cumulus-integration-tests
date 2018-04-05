@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "babel-node spec/run.js",
-    "deploy": "kes cf deploy --kes-folder app --region us-east-1 --template node_modules/@cumulus/deployment/app"
+    "deploy": "kes cf deploy --kes-folder app --region us-east-1 --template node_modules/@cumulus/deployment/app && kes lambda S3AccessTest deploy --kes-folder app --region us-west-1 --template node_modules/@cumulus/deployment/app"
   },
   "author": "Cumulus Authors",
   "license": "Apache-2.0",
