@@ -38,6 +38,12 @@ QueueGranules:
   source: 'node_modules/@cumulus/queue-granules/dist/'
   useMessageAdapter: true
 
+SfSnsReport:
+  handler: index.handler
+  timeout: 300
+  source: 'node_modules/@cumulus/sf-sns-report/dist'
+  useMessageAdapter: true 
+
 SyncGranule:
   handler: index.handler
   timeout: 300

@@ -31,6 +31,7 @@
     "@cumulus/pdr-status-check": "^1.3.0",
     "@cumulus/queue-granules": "^1.3.0",
     "@cumulus/queue-pdrs": "^1.3.0",
+    "@cumulus/sf-sns-report": "^1.3.0",
     "@cumulus/sync-granule": "^1.3.0",
     "aws-sdk": "^2.209.0",
     "jasmine": "^3.1.0",

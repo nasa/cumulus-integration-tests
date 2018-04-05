@@ -60,8 +60,12 @@ Resources:
               Action:
                 - logs:CreateLogGroup
                 - logs:DeleteLogGroup
+                - logs:PutRetentionPolicy
+                - logs:PutSubscriptionFilter
+                - logs:DeleteSubscriptionFilter
               Resource:
                 - !Sub arn:aws:logs:*:*:${Prefix}*
+                - !Sub arn:aws:logs:*:*:/aws/lambda/${Prefix}*
 
             - Effect: Allow
               Action:
@@ -123,6 +127,8 @@ Resources:
               - lambda:TagResource
               - lambda:UntagResource
               - lambda:CreateEventSourceMapping
+              - lambda:GetEventSourceMapping
+              - lambda:DeleteEventSourceMapping
               Resource:
               - "*"
 
