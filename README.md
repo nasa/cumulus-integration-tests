@@ -44,6 +44,24 @@ USE_DEFAULT_CONFIG=true AWS_ACCOUNT_ID=<cumulus-sndbx-account-id> jasmine spec/i
 
 NOTE: For this to work you need your default credentials to be credentials for the `cumulus-sndbx` AWS account.
 
+### Additional deployment steps
+
+An S3 Access lambda is needed in the us-west-1 region to run the tests. To initially create the lambda, run:
+
+```
+aws lambda create-function --region us-west-1  --function-name <STACK>-S3AccessTest --zip-file fileb://app/build/cloudformation/<ZIP>-S3AccessTest.zip  --role arn:aws:iam::<AWS_ACCOUNT_ID>:role/<STACK>-lambda-processing  --handler index.handler --runtime nodejs6.10 --profile ngap-sandbox
+```
+
+Replace <AWS_ACCOUNT_ID> with your accound Id, <STACK> with your stack name, and the zip file <ZIP> can be found in app/build/cloudformation/ following a deployment. The zip file does not matter, but you need something there. 
+
+After the initial creation of this lambda, you can update it by running:
+
+```
+kes lambda S3AccessTest deploy --kes-folder app --template node_modules/@cumulus/deployment/app --deployment <deployment> --region us-west-1
+```
+
+This command will update the lambda with the latest lambda code.
+
 ### Access to test data
 
 To access test data in `s3://cumulus-data-shared`, which is required by all specs except helloWorld, the lambda processing role for your deployment must have access to this bucket. This can be done by redeploying your IAM stack using the cloudformation template in the `iam/` directory. This IAM deployment creates a reference to `SharedBucketName` as `cumulus-data-shared` and adds `cumulus-data-shared` as part of the access policy for `LambdaProcessingRole`.
