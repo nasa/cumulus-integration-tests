@@ -134,7 +134,7 @@ ParsePdr:
       CumulusConfig:
         cumulus_message:
           input: '{$}'
-      ResultPath: null 
+      ResultPath: null
       Type: Task
       Resource: ${SfSnsReportLambdaFunction.Arn}
       Catch:
@@ -145,7 +145,7 @@ ParsePdr:
       Next: WaitForSomeTime 
     WaitForSomeTime:
       Type: Wait
-      Seconds: 120
+      Seconds: 10
       Next: CheckStatus
     StopStatus:
       Type: Task

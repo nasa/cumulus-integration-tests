@@ -160,6 +160,7 @@ Resources:
                 - states:CreateActivity
                 - states:CreateStateMachine
                 - states:DeleteStateMachine
+                - states:UpdateStateMachine
               Resource:
                 "*"
 

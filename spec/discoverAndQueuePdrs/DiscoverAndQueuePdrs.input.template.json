@@ -11,9 +11,12 @@
       "internal": ""
     },
     "collection": {
+      "files": [],
       "provider_path": "cumulus-test-data/pdrs",
       "name": "test-collection",
-      "granuleIdExtraction": "(.*)"
+      "granuleIdExtraction": "(.*)",
+      "granuleId": "(.*).hdf",
+      "process": "modis"
     },
     "provider": {
       "id": "s3_provider",
