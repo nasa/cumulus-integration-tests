@@ -27,7 +27,8 @@
     "templates": {},
     "queues": {
       "startSF": ""
-    }
+    },
+    "topic_arn": ""
   },
   "workflow_config": {
     "StatusReport": {},
@@ -42,6 +43,11 @@
       "collection": "{{$.meta.collection}}",
       "granuleIngestMessageTemplateUri": "{{$.meta.templates.IngestGranule}}",
       "queueUrl": "{{$.meta.queues.startSF}}"
+    },
+    "PdrStatusReport": {
+      "cumulus_message": {
+        "input": "{{$}}"
+      }
     },
     "CheckStatus": {},
     "CheckAgainChoice": {},

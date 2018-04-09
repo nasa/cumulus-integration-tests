@@ -26,7 +26,7 @@ Your default AWS credentials should be the same credentials used for the deploym
 
 To use a different stack name, update `app/config.yml`, `iam/config.yml` and `deployer/config.yml`.
 
-When tests run, by default tests will use the configuration defined in `spec/config.yml` to try and execute a workflow. These variables are required for tests to run on CircleCI.
+When tests run, by default tests will use the configuration defined in `spec/config.yml` to try and execute a workflow. These variables are required for tests to run on CircleCI.  Update `spec/config.yml` when SNS topic_arn changes.
 
 Configuration can be overriden in your own `spec/config.override.yml`. If you are getting setup for the first time:
 
