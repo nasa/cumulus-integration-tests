@@ -15,3 +15,4 @@ yarn.lock
 spec/config.override.yml
 spec/*/*.input.json
 spec/*/*.output.payload.json
+yarn-error.log

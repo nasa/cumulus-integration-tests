@@ -2,6 +2,8 @@ const fs = require('fs');
 const { S3 } = require('aws-sdk');
 const { executeWorkflow, LambdaStep } = require('@cumulus/integration-tests');
 
+const { CollectionConfigStore } = require('@cumulus/common');
+
 const { loadConfig, templateFile } = require('../helpers/testUtils');
 
 const s3 = new S3();
@@ -23,6 +25,9 @@ describe("The Parse PDR workflow", function() {
   let workflowExecution = null;
 
   beforeAll(async function() {
+    const collectionConfigStore = new CollectionConfigStore(config.bucket, config.stackName);
+    await collectionConfigStore.put('MOD09GQ', { name: 'MOD09GQ', granuleIdExtraction: '(.*)' });
+
     workflowExecution = await executeWorkflow(
       config.stackName,
       config.bucket,
