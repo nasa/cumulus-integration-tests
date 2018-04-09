@@ -12,6 +12,8 @@
     },
     "collection": {
       "provider_path": "cumulus-test-data/pdrs",
+      "name": "test-collection",
+      "granuleIdExtraction": "(.*)",
       "files": []
     },
     "provider": {
@@ -37,9 +39,7 @@
       "provider": "{{$.meta.provider}}",
       "collection": "{{$.meta.collection}}",
       "granuleIngestMessageTemplateUri": "{{$.meta.templates.IngestGranule}}",
-      "queueUrl": "{{$.meta.queues.startSF}}",
-      "bucket": "{{$.meta.buckets.internal}}",
-      "stack": "{{$.meta.stack}}"
+      "queueUrl": "{{$.meta.queues.startSF}}"
     },
     "CheckStatus": {},
     "CheckAgainChoice": {},

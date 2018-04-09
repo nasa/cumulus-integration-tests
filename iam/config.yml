@@ -1,6 +1,6 @@
 default:
   prefix: test-cumulus
-  stackName: test-cumulus-iam
+  stackName: test-cumulus-integration-iam
   authorizor: false
   capabilities:
     - CAPABILITY_NAMED_IAM
