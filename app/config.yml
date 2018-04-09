@@ -76,5 +76,5 @@ cumulus-from-npm:
   stackNameNoDash: TestNpmIntegration
 
 cumulus-from-source:
-  prefix: test-source # used by the cumulus repo
+  prefix: test-src # used by the cumulus repo
   stackNameNoDash: TestSourceIntegration
