@@ -1,7 +1,8 @@
 
 default:
-  stackName: test-cumulus-integration
-  stackNameNoDash: TestCumulusIntegration
+  prefix: change-me 
+  stackName: '{{prefix}}-integration'
+  # stackNameNoDash: TestCumulusIntegration
   params:
     - name: CmrPassword
       value: '{{CMR_PASSWORD}}'
@@ -52,11 +53,11 @@ default:
     private: cumulus-test-sandbox-private
 
   iams:
-    ecsRoleArn: 'arn:aws:iam::{{AWS_ACCOUNT_ID}}:role/test-cumulus-integration-ecs'
-    lambdaApiGatewayRoleArn: 'arn:aws:iam::{{AWS_ACCOUNT_ID}}:role/test-cumulus-integration-lambda-api-gateway'
-    lambdaProcessingRoleArn: 'arn:aws:iam::{{AWS_ACCOUNT_ID}}:role/test-cumulus-integration-lambda-processing'
-    stepRoleArn: 'arn:aws:iam::{{AWS_ACCOUNT_ID}}:role/test-cumulus-integration-steprole'
-    instanceProfile: 'arn:aws:iam::{{AWS_ACCOUNT_ID}}:instance-profile/test-cumulus-integration-ecs'
+    ecsRoleArn: 'arn:aws:iam::{{AWS_ACCOUNT_ID}}:role/{{prefix}}-integration-ecs'
+    lambdaApiGatewayRoleArn: 'arn:aws:iam::{{AWS_ACCOUNT_ID}}:role/{{prefix}}-integration-lambda-api-gateway'
+    lambdaProcessingRoleArn: 'arn:aws:iam::{{AWS_ACCOUNT_ID}}:role/{{prefix}}-integration-lambda-processing'
+    stepRoleArn: 'arn:aws:iam::{{AWS_ACCOUNT_ID}}:role/{{prefix}}-integration-steprole'
+    instanceProfile: 'arn:aws:iam::{{AWS_ACCOUNT_ID}}:instance-profile/{{prefix}}-integration-ecs'
 
   urs_url: https://uat.urs.earthdata.nasa.gov/ #make sure to include the trailing slash
 
@@ -69,3 +70,11 @@ default:
   # URS users who should have access to the dashboard application.
   users:
     - username: testuser
+
+cumulus-from-npm:
+  prefix: test-npm # used by the integration repo
+  stackNameNoDash: TestNpmIntegration
+
+cumulus-from-source:
+  prefix: test-source # used by the cumulus repo
+  stackNameNoDash: TestSourceIntegration
