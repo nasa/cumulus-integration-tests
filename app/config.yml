@@ -72,7 +72,7 @@ default:
     - username: testuser
 
 cumulus-from-npm:
-  prefix: test-npm # used by the cumulus repo
+  prefix: test-npm # used by the integration repo
   stackNameNoDash: TestNpmIntegration
 
 cumulus-from-source:
