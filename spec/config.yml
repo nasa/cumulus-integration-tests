@@ -1,21 +1,21 @@
-stackName: test-cumulus-integration
+stackName: test-npm-integration
 bucket: cumulus-test-sandbox-internal
 DiscoverAndQueuePdrs: &defaults
   meta: &meta_config
-    stack: test-cumulus-integration
+    stack: test-npm-integration
     buckets:
       internal: cumulus-test-sandbox-internal
       private: cumulus-test-sandbox-private
     templates:
-      ParsePdr: s3://cumulus-test-sandbox-internal/test-cumulus-integration/workflows/ParsePdr.json
-      IngestGranule: s3://cumulus-test-sandbox-internal/test-cumulus-integration/workflows/IngestGranule.json
+      ParsePdr: s3://cumulus-test-sandbox-internal/test-npm-integration/workflows/ParsePdr.json
+      IngestGranule: s3://cumulus-test-sandbox-internal/test-npm-integration/workflows/IngestGranule.json
     queues:
-      startSF: https://sqs.us-east-1.amazonaws.com/{{AWS_ACCOUNT_ID}}/test-cumulus-integration-startSF
+      startSF: https://sqs.us-east-1.amazonaws.com/{{AWS_ACCOUNT_ID}}/test-npm-integration-startSF
 ParsePdr:
   <<: *defaults
   meta:
     <<: *meta_config
-    topic_arn: arn:aws:sns:us-east-1:{{AWS_ACCOUNT_ID}}:test-cumulus-integration-sftrackerSns-1L7I06L3O2FOI
+    topic_arn: arn:aws:sns:us-east-1:{{AWS_ACCOUNT_ID}}:test-npm-integration-sftrackerSns-19Z31WEPO3ZEH
 IngestGranule:
   <<: *defaults
   SyncGranuleOutput:
