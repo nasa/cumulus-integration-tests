@@ -51,8 +51,6 @@ DiscoverAndQueuePdrs:
       Next: QueuePdrs
     QueuePdrs:
       CumulusConfig:
-        stack: '{$.meta.stack}'
-        bucket: '{$.meta.buckets.internal}'
         queueUrl: '{$.meta.queues.startSF}'
         parsePdrMessageTemplateUri: '{$.meta.templates.ParsePdr}'
         provider: '{$.meta.provider}'
@@ -88,7 +86,6 @@ ParsePdr:
     ParsePdr:
       CumulusConfig:
         provider: '{$.meta.provider}'
-        collection: '{$.meta.collection}'
         internalBucket: '{$.meta.buckets.internal}'
         stack: '{$.meta.stack}'
       Type: Task
@@ -102,9 +99,8 @@ ParsePdr:
     QueueGranules:
       CumulusConfig:
         provider: '{$.meta.provider}'
-        collection: '{$.meta.collection}'
-        bucket: '{$.meta.buckets.internal}'
-        stack: '{$.meta.stack}'
+        internalBucket: '{$.meta.buckets.internal}'
+        stackName: '{$.meta.stack}'
         granuleIngestMessageTemplateUri: '{$.meta.templates.IngestGranule}'
         queueUrl: '{$.meta.queues.startSF}'
       Type: Task
@@ -114,7 +110,43 @@ ParsePdr:
           - States.ALL
           ResultPath: '$.exception'
           Next: StopStatus
-      Next: StopStatus
+      Next: CheckStatus
+    CheckStatus:
+      Type: Task
+      Resource: ${PdrStatusCheckLambdaFunction.Arn}
+      Catch:
+        - ErrorEquals:
+          - States.ALL
+          ResultPath: '$.exception'
+          Next: StopStatus
+      Next: CheckAgainChoice
+    CheckAgainChoice:
+      Type: Choice
+      Choices:
+        - Variable: $.payload.isFinished
+          BooleanEquals: false
+          Next: PdrStatusReport
+        - Variable: $.payload.isFinished
+          BooleanEquals: true
+          Next: StopStatus
+      Default: StopStatus
+    PdrStatusReport:
+      CumulusConfig:
+        cumulus_message:
+          input: '{$}'
+      ResultPath: null
+      Type: Task
+      Resource: ${SfSnsReportLambdaFunction.Arn}
+      Catch:
+        - ErrorEquals:
+          - States.ALL
+          ResultPath: '$.exception'
+          Next: StopStatus
+      Next: WaitForSomeTime
+    WaitForSomeTime:
+      Type: Wait
+      Seconds: 10
+      Next: CheckStatus
     StopStatus:
       Type: Task
       Resource: ${sf2snsEndLambdaFunction.Arn}
