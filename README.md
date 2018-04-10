@@ -96,13 +96,15 @@ By default, the integration tests use latests Cumulus packages published to the 
 - deploy aws by running the kes command (as explained above)
 - run the tests
 
-## How to test breaking changes on new and updated packages?
-- Make a PR on the Cumulus Repo with your latest updates to a package
-- Create a new branch from `master` in this repo
-- Update `.cumulus_branch` and point it to your PR branch on Cumulus repo
+## How to make changes to the cumulus repo that require changes to the cumulus-integration-tests repo
+- Create a branch on the `cumulus` repo
+- Make and commit your changes in the branch on the `cumulus` repo
+- Push the branch to the `cumulus` repo
+- Create a new branch from `master` in the `cumulus-integration-tests` repo
+- Update `.cumulus_branch` and point it at your branch on the `cumulus` repo
 - Update the package version in `package.json` to the version of the next release (if you don't know what the next version is going to be contact the Cumulus scrum master)
-- To test locally, run `./bin/prepare`, deploy to aws and follow [Run all tests] section in this README
-- To test on CircleCI, push your changes to github and check CircleCI 
+- To test locally, run `./bin/prepare`, deploy to AWS, and follow the [Run all tests] section in this README
+- To test on CircleCI, push your changes to github and check CircleCI
 
 ## Forcing CircleCI to use packages from cumulus core
 CircleCI will uses packages from NPM to run the integration tests. If you want to force the CI to use packages from the cumulus repo, do the following:
