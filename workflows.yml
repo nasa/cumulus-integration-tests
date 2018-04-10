@@ -86,7 +86,7 @@ ParsePdr:
     ParsePdr:
       CumulusConfig:
         provider: '{$.meta.provider}'
-        internalBucket: '{$.meta.buckets.internal}'
+        bucket: '{$.meta.buckets.internal}'
         stack: '{$.meta.stack}'
       Type: Task
       Resource: ${ParsePdrLambdaFunction.Arn}
