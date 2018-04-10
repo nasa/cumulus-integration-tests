@@ -33,7 +33,7 @@
     "StatusReport": {},
     "ParsePdr": {
       "provider": "{{$.meta.provider}}",
-      "internalBucket": "{{$.meta.buckets.internal}}",
+      "bucket": "{{$.meta.buckets.internal}}",
       "stack": "{{$.meta.stack}}"
     },
     "QueueGranules": {
