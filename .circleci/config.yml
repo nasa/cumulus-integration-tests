@@ -14,14 +14,42 @@ jobs:
             - deploy-{{ .Branch }}-{{ checksum "package.json" }}
 
       - run:
-          name: install dependencies 
-          command: yarn 
+          name: install and test from npm 
+          command: |
+            { # try
+              # install dependencies
+              yarn --non-interactive
+            } || { 
+              # install non cumulus packages
+              cat package.json | jq '.dependencies | to_entries[] | select(.key | startswith("@cumulus") | not) | .key + "@" + .value' | xargs npm install 
+              echo 'skipping test because @cumulus packages are missing'
+
+              touch run_from_source
+            }
       
       # save cache
       - save_cache:
           key: deploy-{{ .Branch }}-{{ checksum "package.json" }}
           paths:
             - ~/project/node_modules
+
+      - run:
+          name: install packages from the cumulus source
+          command: |
+            if [ -f run_from_source ]; then
+              # clone cumulus repo
+              sudo chown -R circleci:circleci /usr/local/bin
+
+              # install cumulus-integration
+              branch="${CUMULUS_BRANCH:-master}"
+              git clone -b ${branch} https://github.com/cumulus-nasa/cumulus.git ~/cumulus
+              cd ~/cumulus
+              yarn
+              yarn bootstrap-no-build
+
+              cd ~/project
+              ./bin/prepare
+            fi
 
       - run:
           name: Deploy lastest changes
