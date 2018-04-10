@@ -44,3 +44,7 @@ SyncGranule:
   logToElasticSearch: true
   source: 'node_modules/@cumulus/sync-granule/dist/'
   useMessageAdapter: true
+
+S3AccessTest:
+  handler: index.handler
+  source: 'lambdas/s3AccessTest/'
