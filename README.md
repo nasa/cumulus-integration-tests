@@ -78,7 +78,17 @@ The workflow should be configured as it would be for a normal Cumulus deployment
 
 A new folder should be added in the `/spec` folder for the workflow and the tests should go into that folder with the input JSON files. 
 
-## Using latest Cumulus Source code for tests
+# CircleCI
+This is how our integration tests on circleci install and use cumulus packages:
+- If a package exists on npm, the source code of the packages is installed from npm
+- if a package does not exists on npm yet, circleci installs it from the Cumulus repo
+- by default the packages are installed from the `master` branch of the Cumulus repo
+- You can specify the branch of the cumulus repo by:
+  - setting `CUMULUS_BRANCH` environment variable on circleci
+  - adding the `.cumulus_branch` file on the root of the integration repo and specifying the branch name
+  - `CUMULUS_BRANCH` takes precedent over `.cumulus_branch` file name
+
+## Using latest Cumulus Source code for local tests
 By default, the integration tests use latests Cumulus packages published to the NPM. To use the packages from the Cumulus repository, do the following:
 - Make sure cumulus repo is cloned relative to the integration repo. We assume the cumulus repo is cloned to `../cumulus`
 - Install all the dependencies in the cumulus repo by running `yarn` and `yarn bootstrap-no-build` in the cumulus folder

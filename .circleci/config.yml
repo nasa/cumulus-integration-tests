@@ -21,7 +21,7 @@ jobs:
               yarn --non-interactive
             } || { 
               # install non cumulus packages
-              cat package.json | jq '.dependencies | to_entries[] | select(.key | startswith("@cumulus") | not) | .key + "@" + .value' | xargs npm install 
+              cat package.json | jq '.dependencies, .devDependencies | to_entries[] | select(.key | startswith("@cumulus") | not) | .key + "@" + .value' | xargs npm install 
               echo 'skipping test because @cumulus packages are missing'
 
               touch run_from_source
@@ -40,8 +40,17 @@ jobs:
               # clone cumulus repo
               sudo chown -R circleci:circleci /usr/local/bin
 
+              branch=master
+              # determine the branch
+              if [ ! -z "$CUMULUS_BRANCH" ]; then
+                branch="$CUMULUS_BRANCH"
+              else
+                if [ -f .cumulus_branch ]; then
+                  branch=$(cat .cumulus_branch)
+                fi
+              fi
+
               # install cumulus-integration
-              branch="${CUMULUS_BRANCH:-master}"
               git clone -b ${branch} https://github.com/cumulus-nasa/cumulus.git ~/cumulus
               cd ~/cumulus
               yarn
