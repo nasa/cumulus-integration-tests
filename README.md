@@ -77,3 +77,17 @@ Workflow tests are located in the `/spec/<workflow-name>` folder. Any tests and 
 The workflow should be configured as it would be for a normal Cumulus deployment in `workflows.yml`. It must be deployed to the current deployment if testing locally.
 
 A new folder should be added in the `/spec` folder for the workflow and the tests should go into that folder with the input JSON files. 
+
+## Using latest Cumulus Source code for tests
+By default, the integration tests use latests Cumulus packages published to the NPM. To use the packages from the Cumulus repository, do the following:
+- Make sure cumulus repo is cloned relative to the integration repo. We assume the cumulus repo is cloned to `../cumulus`
+- Install all the dependencies in the cumulus repo by running `yarn` and `yarn bootstrap-no-build` in the cumulus folder
+- Run `./bin/prepare` command in this folder
+- deploy aws by running the kes command (as explained above)
+- run the tests
+
+## Forcing CircleCI to use packages from cumulus core
+CircleCI will uses packages from NPM to run the integration tests. If you want to force the CI to use packages from the cumulus repo, do the following:
+- Update @cumulus packages version to in `package.json` to a version not released yet
+- If you need to get the source code from a branch of Cumulus other than master, set environment variable `CUMULUS_BRANCH`
+
