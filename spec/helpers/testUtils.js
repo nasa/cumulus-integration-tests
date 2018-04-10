@@ -1,6 +1,5 @@
 const fs = require('fs');
-const clonedeep = require('lodash.clonedeep');
-const merge = require('lodash.merge');
+const lodash = require('lodash');
 const yaml = require('js-yaml');
 
 /**
@@ -30,7 +29,7 @@ function loadConfig() {
  */
 function templateFile({ inputTemplateFilename, config }) {
   const inputTemplate = JSON.parse(fs.readFileSync(inputTemplateFilename));
-  const templatedInput = merge(clonedeep(inputTemplate), config);
+  const templatedInput = loadsh.merge(lodash.clonedeep(inputTemplate), config);
   let jsonString = JSON.stringify(templatedInput, null, 2);
   jsonString = jsonString.replace('{{AWS_ACCOUNT_ID}}', process.env.AWS_ACCOUNT_ID);
   const templatedInputFilename = inputTemplateFilename.replace('.template', '');
