@@ -1,0 +1,24 @@
+#!/bin/bash
+
+set -e
+
+
+mkdir -p .tmp
+SOURCE_REPO=${CUMULUS_PATH:-'../cumulus'}
+
+# store current path
+TEST_REPO=$(pwd)
+
+# this script will link the packages specified in the npm to the ones in the cumulus repo
+cat package.json | jq '.dependencies | to_entries[] | select(.key | startswith("@cumulus")).key' > .tmp/cumulus_integration_tests_packages.txt
+cd $SOURCE_REPO
+yarn build
+
+# run the yarn link on packages used on the integration tests
+cat $TEST_REPO/.tmp/cumulus_integration_tests_packages.txt | xargs -I % ./node_modules/.bin/lerna exec --scope % -- yarn link
+cd $TEST_REPO 
+
+# run the yarn link package-name on the integration tests
+cat .tmp/cumulus_integration_tests_packages.txt | xargs -I % yarn link %
+
+rm -rf .tmp

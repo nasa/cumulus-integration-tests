@@ -15,7 +15,17 @@ jobs:
 
       - run:
           name: install dependencies 
-          command: yarn 
+          command: |
+            { # try
+              # install dependencies
+              yarn --non-interactive
+            } || { 
+              # install non cumulus packages
+              cat package.json | jq '.dependencies, .devDependencies | to_entries[] | select(.key | startswith("@cumulus") | not) | .key + "@" + .value' | xargs npm install 
+              echo 'skipping test because @cumulus packages are missing'
+
+              touch run_from_source
+            }
       
       # save cache
       - save_cache:
@@ -24,8 +34,35 @@ jobs:
             - ~/project/node_modules
 
       - run:
+          name: install packages from the cumulus source
+          command: |
+            if [ -f run_from_source ]; then
+              # clone cumulus repo
+              sudo chown -R circleci:circleci /usr/local/bin
+
+              branch=master
+              # determine the branch
+              if [ ! -z "$CUMULUS_BRANCH" ]; then
+                branch="$CUMULUS_BRANCH"
+              else
+                if [ -f .cumulus_branch ]; then
+                  branch=$(cat .cumulus_branch)
+                fi
+              fi
+
+              # install cumulus-integration
+              git clone -b ${branch} https://github.com/cumulus-nasa/cumulus.git ~/cumulus
+              cd ~/cumulus
+              yarn
+              yarn bootstrap-no-build
+
+              cd ~/project
+              ./bin/prepare
+            fi
+
+      - run:
           name: Deploy lastest changes
-          command: yarn deploy
+          command: ./node_modules/.bin/kes cf deploy --kes-folder app --region us-east-1 --deployment cumulus-from-npm --template node_modules/@cumulus/deployment/app && ./node_modules/.bin/kes lambda S3AccessTest deploy --kes-folder app --region us-west-1 --deployment cumulus-from-npm --template node_modules/@cumulus/deployment/app
 
       - run:
           name: Run Tests 

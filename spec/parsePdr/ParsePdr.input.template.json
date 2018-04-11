@@ -11,10 +11,12 @@
       "internal": ""
     },
     "collection": {
+      "files": [],
       "provider_path": "cumulus-test-data/pdrs",
       "name": "test-collection",
       "granuleIdExtraction": "(.*)",
-      "files": []
+      "granuleId": "(.*).hdf",
+      "process": "modis"
     },
     "provider": {
       "host": "cumulus-data-shared",
@@ -31,13 +33,13 @@
     "StatusReport": {},
     "ParsePdr": {
       "provider": "{{$.meta.provider}}",
-      "collection": "{{$.meta.collection}}",
       "bucket": "{{$.meta.buckets.internal}}",
       "stack": "{{$.meta.stack}}"
     },
     "QueueGranules": {
       "provider": "{{$.meta.provider}}",
-      "collection": "{{$.meta.collection}}",
+      "internalBucket": "{{$.meta.buckets.internal}}",
+      "stackName": "{{$.meta.stack}}",
       "granuleIngestMessageTemplateUri": "{{$.meta.templates.IngestGranule}}",
       "queueUrl": "{{$.meta.queues.startSF}}"
     },

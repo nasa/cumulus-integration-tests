@@ -1,6 +1,6 @@
 default:
-  prefix: test-cumulus
-  stackName: test-cumulus-integration-iam
+  prefix: test-cumulus-integration
+  stackName: '{{prefix}}-iam'
   authorizor: false
   capabilities:
     - CAPABILITY_NAMED_IAM
@@ -19,3 +19,9 @@ default:
        value: '{{buckets.protected}}'
      - name: PublicBucketName
        value: '{{buckets.public}}'
+
+cumulus-from-npm:
+  prefix: test-npm-integration
+
+cumulus-from-source:
+  prefix: test-src-integration
