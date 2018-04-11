@@ -5,6 +5,13 @@ HelloWorld:
   source: 'node_modules/@cumulus/hello-world/dist/'
   useMessageAdapter: true
 
+DiscoverGranules:
+  handler: index.handler
+  timeout: 300
+  memory: 512
+  source: 'node_modules/@cumulus/discover-granules/dist/'
+  useMessageAdapter: true
+
 DiscoverPdrs:
   handler: index.handler
   timeout: 300
@@ -53,4 +60,5 @@ SyncGranule:
 
 S3AccessTest:
   handler: index.handler
+  timeout: 300
   source: 'lambdas/s3AccessTest/'
