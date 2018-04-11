@@ -58,13 +58,6 @@ SyncGranule:
   source: 'node_modules/@cumulus/sync-granule/dist/'
   useMessageAdapter: true
 
-DiscoverGranules:
-  handler: index.handler
-  timeout: 300
-  logToElasticSearch: true
-  source: 'node_modules/@cumulus/discover-granules/dist'
-  useMessageAdapter: true
-
 S3AccessTest:
   handler: index.handler
   timeout: 300
