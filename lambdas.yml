@@ -60,4 +60,5 @@ SyncGranule:
 
 S3AccessTest:
   handler: index.handler
+  timeout: 300
   source: 'lambdas/s3AccessTest/'
