@@ -93,10 +93,8 @@ describe("The Parse PDR workflow", function() {
       lambdaOutput = await lambdaStep.getStepOutput(workflowExecution.executionArn, "SfSnsReport");
     });
 
-    it("has expected output", function() {
-      // TODO Somehow the lambdaOutput.payload is null and this is different from what's in AWS console.
-      // Maybe it's caused by 'ResultPath: null', we want to keep the input as the output
+    it("has expected output message", function() {
+      expect(lambdaOutput.payload.messageId).not.toBeNull();
     });
   });
-
 });
