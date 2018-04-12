@@ -19,9 +19,8 @@ const templatedHttpsInputFilename = templateFile({
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 120000;
 
-describe("The Discover Granules workflow", function() {
+describe("The Discover Granules workflow with http Protocol", function() {
   let httpWorkflowExecution = null;
-  let httpsWorkflowExecution = null;
 
   beforeAll(async function() {
     httpWorkflowExecution = await executeWorkflow(
@@ -30,19 +29,13 @@ describe("The Discover Granules workflow", function() {
       taskName,
       templatedHttpInputFilename
     );
-    httpsWorkflowExecution = await executeWorkflow(
-      config.stackName,
-      config.bucket,
-      taskName,
-      templatedHttpsInputFilename
-    );
   });
 
   it('executes successfully', function() {
     expect(httpWorkflowExecution.status).toEqual('SUCCEEDED');
   });
 
-  describe("the DiscoverGranules Lambda with http Protocol", function() {
+  describe("the DiscoverGranules Lambda", function() {
     let lambdaOutput = null;
 
     beforeAll(async function() {
@@ -55,8 +48,25 @@ describe("The Discover Granules workflow", function() {
       expect(lambdaOutput.payload.granules[0].files.length).toEqual(2);
     });
   });
+});
 
-  describe("the DiscoverGranules Lambda with https Protocol", function() {
+describe("The Discover Granules workflow with https Protocol", function() {
+  let httpsWorkflowExecution = null;
+
+  beforeAll(async function() {
+    httpsWorkflowExecution = await executeWorkflow(
+      config.stackName,
+      config.bucket,
+      taskName,
+      templatedHttpsInputFilename
+    );
+  });
+
+  it('executes successfully', function() {
+    expect(httpsWorkflowExecution.status).toEqual('SUCCEEDED');
+  });
+
+  describe("the DiscoverGranules Lambda", function() {
     let lambdaOutput = null;
 
     beforeAll(async function() {
