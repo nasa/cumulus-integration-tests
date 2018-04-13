@@ -1,6 +1,6 @@
 const fs = require('fs');
 const { S3 } = require('aws-sdk');
-const { executeWorkflow, LambdaStep } = require('@cumulus/integration-tests');
+const { executeWorkflow, waitForCompletedExecution, LambdaStep } = require('@cumulus/integration-tests');
 
 const { CollectionConfigStore } = require('@cumulus/common');
 
@@ -23,6 +23,7 @@ jasmine.DEFAULT_TIMEOUT_INTERVAL = 120000;
 
 describe("The Parse PDR workflow", function() {
   let workflowExecution = null;
+  let pdrStatusCheckOutput = null;
 
   beforeAll(async function() {
     const collectionConfigStore = new CollectionConfigStore(config.bucket, config.stackName);
@@ -34,6 +35,8 @@ describe("The Parse PDR workflow", function() {
       taskName,
       templatedInputFilename
     );
+
+    pdrStatusCheckOutput = await lambdaStep.getStepOutput(workflowExecution.executionArn, "PdrStatusCheck");
   });
 
   afterAll(async () => {
@@ -73,16 +76,10 @@ describe("The Parse PDR workflow", function() {
   });
 
   describe('the PdrStatusCheck Lambda', () => {
-    let lambdaOutput = null;
-
-    beforeAll(async function() {
-      lambdaOutput = await lambdaStep.getStepOutput(workflowExecution.executionArn, "PdrStatusCheck");
-    });
-
     it("has expected output", function() {
-      const payload = lambdaOutput.payload;
+      const payload = pdrStatusCheckOutput.payload;
       expect(payload.running.concat(payload.completed, payload.failed).length).toEqual(1);
-      expect(lambdaOutput.payload.pdr).toEqual(expectedParsePdrOutput.pdr);
+      expect(payload.pdr).toEqual(expectedParsePdrOutput.pdr);
     });
   });
 
@@ -96,6 +93,37 @@ describe("The Parse PDR workflow", function() {
     it("has expected output", function() {
       // TODO Somehow the lambdaOutput.payload is null and this is different from what's in AWS console.
       // Maybe it's caused by 'ResultPath: null', we want to keep the input as the output
+    });
+  });
+
+  /**
+   * The parse pdr workflow kicks off a granule ingest workflow, so check that the 
+   * granule ingest workflow completes successfully. Above, we checked that there is 
+   * one running task, which is the sync granule workflow. The payload has the arn of the 
+   * running workflow, so use that to get the status.
+   */
+  describe('Granule ingest', () => {
+    let syncGranuleStatus = null;
+    let ingestWorkflowArn = pdrStatusCheckOutput.payload.running[0];
+
+    beforeAll(async function() {
+      syncGranuleStatus = await waitForCompletedExecution(ingestWorkflowArn);
+    });
+
+    it('is successful', function() {
+      expect(syncGranuleStatus).toEqual('SUCCEEDED');
+    });
+
+    describe('The sync granules lambda', () => {
+      let lambdaOutput = null;
+
+      beforeAll(async function() {
+        lambdaOutput = await lambdaStep.getStepOutput(ingestWorkflowArn, "SyncGranule");
+      });
+
+      it('outputs 1 granule', function() {
+        expect(lambdaOutput.payload.granules.length.toEqual(1))
+      });
     });
   });
 
