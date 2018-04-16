@@ -1,6 +1,8 @@
-#  Cumulus Integration Test Project
+#  Cumulus Integration Test Project [DEPRECATED]
 
 [![CircleCI](https://circleci.com/gh/cumulus-nasa/cumulus-integration-tests.svg?style=svg)](https://circleci.com/gh/cumulus-nasa/cumulus-integration-tests)
+
+**Note:** This repository is no longer maintained. The content of this repository is moved [here](https://github.com/cumulus-nasa/cumulus/tree/master/example).
 
 ## What is Cumulus?
 
